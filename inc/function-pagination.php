@@ -89,12 +89,12 @@ function wp_bootstrap_pagination($args = array())
  *     </ul>
  * </div>
  * 
- * Usage: <?php micco_pagination(); ?> or <?php micco_pagination($custom_query); ?>
+ * Usage: <?php canhcam_pagination(); ?> or <?php canhcam_pagination($custom_query); ?>
  * 
  * @param WP_Query|null $custom_query Optional custom WP_Query object
  * @param array $args Optional arguments
  */
-function micco_pagination($custom_query = null, $args = array()) {
+function canhcam_pagination($custom_query = null, $args = array()) {
     // Default arguments
     $defaults = array(
         'range'           => 5,        // Number of page links to show
@@ -199,7 +199,7 @@ function micco_pagination($custom_query = null, $args = array()) {
  * 
  * @param WP_Query|null $custom_query Optional custom WP_Query object
  */
-function micco_pagination_simple($custom_query = null) {
+function canhcam_pagination_simple($custom_query = null) {
     // Get the query object
     if ($custom_query === null) {
         global $wp_query;

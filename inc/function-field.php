@@ -54,7 +54,7 @@ function add_field_select_banner()
 			// 	array(
 			// 		'param' => 'taxonomy',
 			// 		'operator' => '==',
-			// 		'value' => 'danh-muc-san-pham'
+			// 		'value' => 'product-category'
 			// 	)
 			// )
 		),

@@ -1,73 +1,142 @@
 {
-  "key": "group_san_pham_single",
-  "title": "Chi tiết Sản Phẩm - Content Fields",
-  "fields": [
-    {
-      "key": "tab_san_pham_gallery",
-      "label": "📌 Thư viện ảnh",
-      "type": "tab"
-    },
-    {
-      "key": "field_san_pham_gallery",
-      "name": "product_gallery",
-      "label": "Thư viện ảnh sản phẩm",
-      "type": "repeater",
-      "layout": "block",
-      "button_label": "Thêm ảnh",
-      "min": 0,
-      "max": 0,
-      "sub_fields": [
+    "key": "group_san_pham_single",
+    "title": "Sản Phẩm Details",
+    "fields": [
         {
-          "key": "field_san_pham_gallery_image",
-          "name": "image",
-          "label": "Hình ảnh",
-          "type": "image",
-          "return_format": "array"
-        }
-      ]
-    },
-    {
-      "key": "tab_san_pham_tabs",
-      "label": "📌 Nội dung (Tabs)",
-      "type": "tab"
-    },
-    {
-      "key": "field_san_pham_tabs",
-      "name": "product_tabs",
-      "label": "Tabs nội dung",
-      "type": "repeater",
-      "layout": "block",
-      "button_label": "Thêm tab",
-      "collapsed": "field_san_pham_tab_title",
-      "min": 0,
-      "max": 0,
-      "sub_fields": [
-        {
-          "key": "field_san_pham_tab_title",
-          "name": "tab_title",
-          "label": "Tiêu đề tab",
-          "type": "text",
-          "instructions": "VD: Mô tả, An toàn, Miễn trừ trách nhiệm, Lưu ý..."
+            "key": "field_sp_gallery",
+            "label": "Product Gallery",
+            "name": "product_gallery",
+            "type": "gallery",
+            "instructions": "Upload images for the product slider.",
+            "required": 0,
+            "return_format": "array",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all"
         },
         {
-          "key": "field_san_pham_tab_content",
-          "name": "tab_content",
-          "label": "Nội dung tab",
-          "type": "wysiwyg",
-          "toolbar": "full",
-          "media_upload": 1
+            "key": "field_sp_info_top",
+            "label": "Info Product Top",
+            "name": "info_product_top",
+            "type": "repeater",
+            "instructions": "Add top information metrics (e.g. Size, Weight).",
+            "sub_fields": [
+                {
+                    "key": "field_sp_info_top_label",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "e.g. Size",
+                    "required": 1
+                },
+                {
+                    "key": "field_sp_info_top_number",
+                    "label": "Number",
+                    "name": "number",
+                    "type": "text",
+                    "instructions": "e.g. 1-10",
+                    "required": 1
+                },
+                {
+                    "key": "field_sp_info_top_unit",
+                    "label": "Unit",
+                    "name": "unit",
+                    "type": "text",
+                    "instructions": "e.g. cm",
+                    "required": 0
+                }
+            ],
+            "layout": "table",
+            "button_label": "Add Info Item"
+        },
+        {
+            "key": "field_sp_info_bottom",
+            "label": "Info Product Bottom",
+            "name": "info_product_bottom",
+            "type": "repeater",
+            "instructions": "Add detailed information (e.g. Packaging).",
+            "sub_fields": [
+                {
+                    "key": "field_sp_info_bottom_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "e.g. Packaging",
+                    "required": 1
+                },
+                {
+                    "key": "field_sp_info_bottom_content",
+                    "label": "Content",
+                    "name": "content",
+                    "type": "textarea",
+                    "instructions": "Detailed description.",
+                    "required": 1,
+                    "rows": 3,
+                    "new_lines": "br"
+                }
+            ],
+            "layout": "row",
+            "button_label": "Add Detail Section"
+        },
+        {
+            "key": "field_sp_certification",
+            "label": "Certification Image",
+            "name": "certification_image",
+            "type": "image",
+            "instructions": "Upload certification logo/image.",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_sp_applications",
+            "label": "Product Applications",
+            "name": "product_applications",
+            "type": "repeater",
+            "instructions": "Add application areas (Blue section).",
+            "sub_fields": [
+                {
+                    "key": "field_sp_app_icon",
+                    "label": "Icon",
+                    "name": "icon",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "thumbnail"
+                },
+                {
+                    "key": "field_sp_app_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_sp_app_desc",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "rows": 2
+                }
+            ],
+            "layout": "block",
+            "button_label": "Add Application"
         }
-      ]
-    }
-  ],
-  "location": [
-    [
-      {
-        "param": "post_type",
-        "operator": "==",
-        "value": "san-pham"
-      }
-    ]
-  ],
-  "active": true
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "product"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for Single Product Page mapping."
 }

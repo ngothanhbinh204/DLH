@@ -3,43 +3,43 @@
  * Custom Post Types for Micco Quang Ninh
  * 
  * Post Types:
- * - san-pham (Sản phẩm / Products)
- * - dich-vu (Dịch vụ / Services)
+ * - product (Products)
+ * - service (Services)
  * - tuyen-dung (Tuyển dụng / Recruitment)
  */
 
+// ===================================================a=========================
+// REGISTER PRODUCTS POST TYPE
 // ============================================================================
-// REGISTER SẢN PHẨM (PRODUCTS) POST TYPE
-// ============================================================================
-function create_san_pham_post_type() {
+function create_product_post_type() {
     $labels = array(
-        'name'                  => 'Sản Phẩm',
-        'singular_name'         => 'Sản Phẩm',
-        'menu_name'             => 'Sản Phẩm',
-        'name_admin_bar'        => 'Sản Phẩm',
-        'archives'              => 'Danh sách Sản Phẩm',
-        'attributes'            => 'Thuộc tính Sản Phẩm',
-        'parent_item_colon'     => 'Sản Phẩm cha:',
-        'all_items'             => 'Tất cả Sản Phẩm',
-        'add_new_item'          => 'Thêm Sản Phẩm mới',
-        'add_new'               => 'Thêm mới',
-        'new_item'              => 'Sản Phẩm mới',
-        'edit_item'             => 'Sửa Sản Phẩm',
-        'update_item'           => 'Cập nhật Sản Phẩm',
-        'view_item'             => 'Xem Sản Phẩm',
-        'view_items'            => 'Xem các Sản Phẩm',
-        'search_items'          => 'Tìm kiếm Sản Phẩm',
-        'not_found'             => 'Không tìm thấy',
-        'not_found_in_trash'    => 'Không tìm thấy trong thùng rác',
-        'featured_image'        => 'Ảnh đại diện',
-        'set_featured_image'    => 'Đặt ảnh đại diện',
-        'remove_featured_image' => 'Xóa ảnh đại diện',
-        'use_featured_image'    => 'Sử dụng làm ảnh đại diện',
-        'insert_into_item'      => 'Chèn vào Sản Phẩm',
-        'uploaded_to_this_item' => 'Đã tải lên cho Sản Phẩm này',
-        'items_list'            => 'Danh sách Sản Phẩm',
-        'items_list_navigation' => 'Điều hướng danh sách Sản Phẩm',
-        'filter_items_list'     => 'Lọc danh sách Sản Phẩm',
+        'name'                  => 'Products',
+        'singular_name'         => 'Product',
+        'menu_name'             => 'Products',
+        'name_admin_bar'        => 'Product',
+        'archives'              => 'Product Archives',
+        'attributes'            => 'Product Attributes',
+        'parent_item_colon'     => 'Parent Product:',
+        'all_items'             => 'All Products',
+        'add_new_item'          => 'Add New Product',
+        'add_new'               => 'Add New',
+        'new_item'              => 'New Product',
+        'edit_item'             => 'Edit Product',
+        'update_item'           => 'Update Product',
+        'view_item'             => 'View Product',
+        'view_items'            => 'View Products',
+        'search_items'          => 'Search Products',
+        'not_found'             => 'Not found',
+        'not_found_in_trash'    => 'Not found in Trash',
+        'featured_image'        => 'Featured Image',
+        'set_featured_image'    => 'Set featured image',
+        'remove_featured_image' => 'Remove featured image',
+        'use_featured_image'    => 'Use as featured image',
+        'insert_into_item'      => 'Insert into product',
+        'uploaded_to_this_item' => 'Uploaded to this product',
+        'items_list'            => 'Products list',
+        'items_list_navigation' => 'Products list navigation',
+        'filter_items_list'     => 'Filter products list',
     );
     
     $args = array(
@@ -49,9 +49,9 @@ function create_san_pham_post_type() {
         'show_ui'             => true,
         'show_in_menu'        => true,
         'query_var'           => true,
-        'rewrite'             => array('slug' => 'san-pham', 'with_front' => false),
+        'rewrite'             => array('slug' => 'product', 'with_front' => false),
         'capability_type'     => 'post',
-        'has_archive'         => true,
+        'has_archive'         => false,
         'hierarchical'        => false,
         'menu_position'       => 5,
         'supports'            => array('title', 'editor', 'thumbnail', 'excerpt'),
@@ -59,29 +59,29 @@ function create_san_pham_post_type() {
         'show_in_rest'        => true,
     );
 
-    register_post_type('san-pham', $args);
+    register_post_type('product', $args);
 }
-add_action('init', 'create_san_pham_post_type');
+add_action('init', 'create_product_post_type');
 
-// Register Danh Mục Sản Phẩm Taxonomy
-function create_san_pham_taxonomy() {
+// Register Product Category Taxonomy
+function create_product_taxonomy() {
     $labels = array(
-        'name'                       => 'Danh Mục Sản Phẩm',
-        'singular_name'              => 'Danh Mục Sản Phẩm',
-        'search_items'               => 'Tìm kiếm Danh Mục',
-        'popular_items'              => 'Danh Mục phổ biến',
-        'all_items'                  => 'Tất cả Danh Mục',
-        'parent_item'                => 'Danh Mục cha',
-        'parent_item_colon'          => 'Danh Mục cha:',
-        'edit_item'                  => 'Sửa Danh Mục',
-        'update_item'                => 'Cập nhật Danh Mục',
-        'add_new_item'               => 'Thêm Danh Mục mới',
-        'new_item_name'              => 'Tên Danh Mục mới',
-        'separate_items_with_commas' => 'Phân tách các Danh Mục bằng dấu phẩy',
-        'add_or_remove_items'        => 'Thêm hoặc xóa Danh Mục',
-        'choose_from_most_used'      => 'Chọn từ các Danh Mục được sử dụng nhiều nhất',
-        'not_found'                  => 'Không tìm thấy Danh Mục',
-        'menu_name'                  => 'Danh Mục Sản Phẩm',
+        'name'                       => 'Product Categories',
+        'singular_name'              => 'Product Category',
+        'search_items'               => 'Search Categories',
+        'popular_items'              => 'Popular Categories',
+        'all_items'                  => 'All Categories',
+        'parent_item'                => 'Parent Category',
+        'parent_item_colon'          => 'Parent Category:',
+        'edit_item'                  => 'Edit Category',
+        'update_item'                => 'Update Category',
+        'add_new_item'               => 'Add New Category',
+        'new_item_name'              => 'New Category Name',
+        'separate_items_with_commas' => 'Separate categories with commas',
+        'add_or_remove_items'        => 'Add or remove categories',
+        'choose_from_most_used'      => 'Choose from the most used categories',
+        'not_found'                  => 'No categories found',
+        'menu_name'                  => 'Product Categories',
     );
 
     $args = array(
@@ -90,46 +90,46 @@ function create_san_pham_taxonomy() {
         'show_ui'               => true,
         'show_admin_column'     => true,
         'query_var'             => true,
-        'rewrite'               => array('slug' => 'danh-muc-san-pham'),
+        'rewrite'               => array('slug' => 'product-category'),
         'show_in_rest'          => true,
     );
 
-    register_taxonomy('danh-muc-san-pham', array('san-pham'), $args);
+    register_taxonomy('product-category', array('product'), $args);
 }
-add_action('init', 'create_san_pham_taxonomy');
+add_action('init', 'create_product_taxonomy');
 
 // ============================================================================
-// REGISTER DỊCH VỤ (SERVICES) POST TYPE
+// REGISTER SERVICES POST TYPE
 // ============================================================================
-function create_dich_vu_post_type() {
+function create_service_post_type() {
     $labels = array(
-        'name'                  => 'Dịch Vụ',
-        'singular_name'         => 'Dịch Vụ',
-        'menu_name'             => 'Dịch Vụ',
-        'name_admin_bar'        => 'Dịch Vụ',
-        'archives'              => 'Danh sách Dịch Vụ',
-        'attributes'            => 'Thuộc tính Dịch Vụ',
-        'parent_item_colon'     => 'Dịch Vụ cha:',
-        'all_items'             => 'Tất cả Dịch Vụ',
-        'add_new_item'          => 'Thêm Dịch Vụ mới',
-        'add_new'               => 'Thêm mới',
-        'new_item'              => 'Dịch Vụ mới',
-        'edit_item'             => 'Sửa Dịch Vụ',
-        'update_item'           => 'Cập nhật Dịch Vụ',
-        'view_item'             => 'Xem Dịch Vụ',
-        'view_items'            => 'Xem các Dịch Vụ',
-        'search_items'          => 'Tìm kiếm Dịch Vụ',
-        'not_found'             => 'Không tìm thấy',
-        'not_found_in_trash'    => 'Không tìm thấy trong thùng rác',
-        'featured_image'        => 'Ảnh đại diện',
-        'set_featured_image'    => 'Đặt ảnh đại diện',
-        'remove_featured_image' => 'Xóa ảnh đại diện',
-        'use_featured_image'    => 'Sử dụng làm ảnh đại diện',
-        'insert_into_item'      => 'Chèn vào Dịch Vụ',
-        'uploaded_to_this_item' => 'Đã tải lên cho Dịch Vụ này',
-        'items_list'            => 'Danh sách Dịch Vụ',
-        'items_list_navigation' => 'Điều hướng danh sách Dịch Vụ',
-        'filter_items_list'     => 'Lọc danh sách Dịch Vụ',
+        'name'                  => 'Services',
+        'singular_name'         => 'Service',
+        'menu_name'             => 'Services',
+        'name_admin_bar'        => 'Service',
+        'archives'              => 'Service Archives',
+        'attributes'            => 'Service Attributes',
+        'parent_item_colon'     => 'Parent Service:',
+        'all_items'             => 'All Services',
+        'add_new_item'          => 'Add New Service',
+        'add_new'               => 'Add New',
+        'new_item'              => 'New Service',
+        'edit_item'             => 'Edit Service',
+        'update_item'           => 'Update Service',
+        'view_item'             => 'View Service',
+        'view_items'            => 'View Services',
+        'search_items'          => 'Search Services',
+        'not_found'             => 'Not found',
+        'not_found_in_trash'    => 'Not found in Trash',
+        'featured_image'        => 'Featured Image',
+        'set_featured_image'    => 'Set featured image',
+        'remove_featured_image' => 'Remove featured image',
+        'use_featured_image'    => 'Use as featured image',
+        'insert_into_item'      => 'Insert into service',
+        'uploaded_to_this_item' => 'Uploaded to this service',
+        'items_list'            => 'Services list',
+        'items_list_navigation' => 'Services list navigation',
+        'filter_items_list'     => 'Filter services list',
     );
     
     $args = array(
@@ -139,7 +139,7 @@ function create_dich_vu_post_type() {
         'show_ui'             => true,
         'show_in_menu'        => true,
         'query_var'           => true,
-        'rewrite'             => array('slug' => 'dich-vu', 'with_front' => false),
+        'rewrite'             => array('slug' => 'services', 'with_front' => false),
         'capability_type'     => 'post',
         'has_archive'         => true,
         'hierarchical'        => false,
@@ -149,117 +149,29 @@ function create_dich_vu_post_type() {
         'show_in_rest'        => true,
     );
 
-    register_post_type('dich-vu', $args);
+    register_post_type('service', $args);
 }
-add_action('init', 'create_dich_vu_post_type');
+add_action('init', 'create_service_post_type');
 
-// Register Danh Mục Dịch Vụ Taxonomy
-function create_dich_vu_taxonomy() {
-    $labels = array(
-        'name'                       => 'Danh Mục Dịch Vụ',
-        'singular_name'              => 'Danh Mục Dịch Vụ',
-        'search_items'               => 'Tìm kiếm Danh Mục',
-        'popular_items'              => 'Danh Mục phổ biến',
-        'all_items'                  => 'Tất cả Danh Mục',
-        'parent_item'                => 'Danh Mục cha',
-        'parent_item_colon'          => 'Danh Mục cha:',
-        'edit_item'                  => 'Sửa Danh Mục',
-        'update_item'                => 'Cập nhật Danh Mục',
-        'add_new_item'               => 'Thêm Danh Mục mới',
-        'new_item_name'              => 'Tên Danh Mục mới',
-        'separate_items_with_commas' => 'Phân tách các Danh Mục bằng dấu phẩy',
-        'add_or_remove_items'        => 'Thêm hoặc xóa Danh Mục',
-        'choose_from_most_used'      => 'Chọn từ các Danh Mục được sử dụng nhiều nhất',
-        'not_found'                  => 'Không tìm thấy Danh Mục',
-        'menu_name'                  => 'Danh Mục Dịch Vụ',
-    );
-
-    $args = array(
-        'hierarchical'          => true,
-        'labels'                => $labels,
-        'show_ui'               => true,
-        'show_admin_column'     => true,
-        'query_var'             => true,
-        'rewrite'               => array('slug' => 'danh-muc-dich-vu'),
-        'show_in_rest'          => true,
-    );
-
-    register_taxonomy('danh-muc-dich-vu', array('dich-vu'), $args);
-}
-add_action('init', 'create_dich_vu_taxonomy');
-
-// ============================================================================
-// REGISTER TUYỂN DỤNG (RECRUITMENT) POST TYPE
-// ============================================================================
-// function create_tuyen_dung_post_type() {
+// Register Service Category Taxonomy
+// function create_service_taxonomy() {
 //     $labels = array(
-//         'name'                  => 'Tuyển Dụng',
-//         'singular_name'         => 'Tuyển Dụng',
-//         'menu_name'             => 'Tuyển Dụng',
-//         'name_admin_bar'        => 'Tuyển Dụng',
-//         'archives'              => 'Lưu trữ Tuyển Dụng',
-//         'attributes'            => 'Thuộc tính Tuyển Dụng',
-//         'parent_item_colon'     => 'Tuyển Dụng cha:',
-//         'all_items'             => 'Tất cả Tuyển Dụng',
-//         'add_new_item'          => 'Thêm Tuyển Dụng mới',
-//         'add_new'               => 'Thêm mới',
-//         'new_item'              => 'Tuyển Dụng mới',
-//         'edit_item'             => 'Sửa Tuyển Dụng',
-//         'update_item'           => 'Cập nhật Tuyển Dụng',
-//         'view_item'             => 'Xem Tuyển Dụng',
-//         'view_items'            => 'Xem các Tuyển Dụng',
-//         'search_items'          => 'Tìm kiếm Tuyển Dụng',
-//         'not_found'             => 'Không tìm thấy',
-//         'not_found_in_trash'    => 'Không tìm thấy trong thùng rác',
-//         'featured_image'        => 'Ảnh đại diện',
-//         'set_featured_image'    => 'Đặt ảnh đại diện',
-//         'remove_featured_image' => 'Xóa ảnh đại diện',
-//         'use_featured_image'    => 'Sử dụng làm ảnh đại diện',
-//         'insert_into_item'      => 'Chèn vào Tuyển Dụng',
-//         'uploaded_to_this_item' => 'Đã tải lên cho Tuyển Dụng này',
-//         'items_list'            => 'Danh sách Tuyển Dụng',
-//         'items_list_navigation' => 'Điều hướng danh sách Tuyển Dụng',
-//         'filter_items_list'     => 'Lọc danh sách Tuyển Dụng',
-//     );
-    
-//     $args = array(
-//         'labels'              => $labels,
-//         'public'              => true,
-//         'publicly_queryable'  => true,
-//         'show_ui'             => true,
-//         'show_in_menu'        => true,
-//         'query_var'           => true,
-//         'rewrite'             => array('slug' => 'tuyen-dung'),
-//         'capability_type'     => 'post',
-//         'has_archive'         => false,
-//         'hierarchical'        => false,
-//         'menu_position'       => null,
-//         'supports'            => array('title', 'thumbnail', 'excerpt'),
-//         'menu_icon'           => 'dashicons-businessman',
-//     );
-
-//     register_post_type('tuyen-dung', $args);
-// }
-// add_action('init', 'create_tuyen_dung_post_type');
-
-// function create_danh_muc_tuyen_dung_taxonomy() {
-//     $labels = array(
-//         'name'                       => 'Danh Mục Tuyển Dụng',
-//         'singular_name'              => 'Danh Mục Tuyển Dụng',
-//         'search_items'               => 'Tìm kiếm Danh Mục',
-//         'popular_items'              => 'Danh Mục phổ biến',
-//         'all_items'                  => 'Tất cả Danh Mục',
-//         'parent_item'                => 'Danh Mục cha',
-//         'parent_item_colon'          => 'Danh Mục cha:',
-//         'edit_item'                  => 'Sửa Danh Mục',
-//         'update_item'                => 'Cập nhật Danh Mục',
-//         'add_new_item'               => 'Thêm Danh Mục mới',
-//         'new_item_name'              => 'Tên Danh Mục mới',
-//         'separate_items_with_commas' => 'Phân tách các Danh Mục bằng dấu phẩy',
-//         'add_or_remove_items'        => 'Thêm hoặc xóa Danh Mục',
-//         'choose_from_most_used'      => 'Chọn từ các Danh Mục được sử dụng nhiều nhất',
-//         'not_found'                  => 'Không tìm thấy Danh Mục',
-//         'menu_name'                  => 'Danh Mục Tuyển Dụng',
+//         'name'                       => 'Service Categories',
+//         'singular_name'              => 'Service Category',
+//         'search_items'               => 'Search Categories',
+//         'popular_items'              => 'Popular Categories',
+//         'all_items'                  => 'All Categories',
+//         'parent_item'                => 'Parent Category',
+//         'parent_item_colon'          => 'Parent Category:',
+//         'edit_item'                  => 'Edit Category',
+//         'update_item'                => 'Update Category',
+//         'add_new_item'               => 'Add New Category',
+//         'new_item_name'              => 'New Category Name',
+//         'separate_items_with_commas' => 'Separate categories with commas',
+//         'add_or_remove_items'        => 'Add or remove categories',
+//         'choose_from_most_used'      => 'Choose from the most used categories',
+//         'not_found'                  => 'No categories found',
+//         'menu_name'                  => 'Service Categories',
 //     );
 
 //     $args = array(
@@ -268,17 +180,52 @@ add_action('init', 'create_dich_vu_taxonomy');
 //         'show_ui'               => true,
 //         'show_admin_column'     => true,
 //         'query_var'             => true,
-//         'rewrite'               => array('slug' => 'tuyen-dung-category'),
+//         'rewrite'               => array('slug' => 'service-category'),
 //         'show_in_rest'          => true,
 //     );
 
-//     register_taxonomy('tuyen-dung-category', array('tuyen-dung'), $args);
+//     register_taxonomy('service-category', array('service'), $args);
 // }
-// add_action('init', 'create_danh_muc_tuyen_dung_taxonomy');
+// add_action('init', 'create_service_taxonomy');
 
-// ============================================================================
-// RANK MATH SEO INTEGRATION
-// ============================================================================
+
+function register_market_post_type() {
+    $labels = array(
+        'name'                  => _x( 'Markets', 'Post Type General Name', 'canhcamtheme' ),
+        'singular_name'         => _x( 'Market', 'Post Type Singular Name', 'canhcamtheme' ),
+        'menu_name'             => __( 'Markets', 'canhcamtheme' ),
+        'all_items'             => __( 'All Markets', 'canhcamtheme' ),
+        'add_new_item'          => __( 'Add New Market', 'canhcamtheme' ),
+        'add_new'               => __( 'Add New', 'canhcamtheme' ),
+        'new_item'              => __( 'New Market', 'canhcamtheme' ),
+        'edit_item'             => __( 'Edit Market', 'canhcamtheme' ),
+        'update_item'           => __( 'Update Market', 'canhcamtheme' ),
+        'view_item'             => __( 'View Market', 'canhcamtheme' ),
+    );
+    $args = array(
+        'label'                 => __( 'Market', 'canhcamtheme' ),
+        'description'           => __( 'Market Description', 'canhcamtheme' ),
+        'labels'                => $labels,
+        'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt' ), // Hỗ trợ đủ các field cơ bản
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 5,
+        'menu_icon'             => 'dashicons-store', // Icon phù hợp
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => false, 
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'capability_type'       => 'post',
+        'rewrite'               => array('slug' => 'market'), // Slug URL
+    );
+    register_post_type( 'market', $args );
+}
+add_action( 'init', 'register_market_post_type', 0 );
+
 add_action('plugins_loaded', function() {
     // Bail if Rank Math isn't active
     if ( ! ( defined( 'RANK_MATH_VERSION' ) || function_exists( 'rank_math' ) || class_exists( 'RankMath' ) ) ) {
@@ -286,8 +233,8 @@ add_action('plugins_loaded', function() {
     }
 
     $custom_taxonomies = array(
-        'danh-muc-san-pham',
-        'danh-muc-dich-vu',
+        'product-category',
+        'service-category',
         'tuyen-dung-category',
     );
 
@@ -325,8 +272,8 @@ add_filter( 'rank_math/frontend/breadcrumb/items', function( $crumbs, $class ) {
 
     // Map CPT => taxonomy
     $map = array(
-        'san-pham'    => 'danh-muc-san-pham',
-        'dich-vu'     => 'danh-muc-dich-vu',
+        'product'     => 'product-category',
+        'service'     => 'service-category',
         'tuyen-dung'  => 'tuyen-dung-category',
     );
 

@@ -211,7 +211,7 @@
           "label": "Sản phẩm",
           "name": "product",
           "type": "post_object",
-          "post_type": ["san-pham"],
+          "post_type": ["product"],
           "return_format": "object"
         },
         {

@@ -107,16 +107,17 @@ function load_more_careers() {
 			$location = $information['location'];
 			$deadline = $information['application_deadline'];
 			?>
-			<tr>
-				<td data-attr="STT "><?php echo sprintf("%02d", $count); ?></td>
-				<td data-attr="Vị trí "><a class="title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
-				<td data-attr="NƠI LÀM VIỆC"><?php echo $location ? $location : ''; ?></td>
-				<td data-attr="hạn nộp hồ sơ"><?php echo $deadline ? $deadline : ''; ?></td>
-				<td>
-					<div class="flex-center btn-wrap"> <a class="btn btn-tertiary" href="<?php the_permalink(); ?>"><em class="fa-light fa-eye"></em><span><?php _e('Xem chi tiết', 'canhcamtheme'); ?></span></a></div>
-				</td>
-			</tr>
-			<?php
+<tr>
+	<td data-attr="STT "><?php echo sprintf("%02d", $count); ?></td>
+	<td data-attr="Vị trí "><a class="title" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
+	<td data-attr="NƠI LÀM VIỆC"><?php echo $location ? $location : ''; ?></td>
+	<td data-attr="hạn nộp hồ sơ"><?php echo $deadline ? $deadline : ''; ?></td>
+	<td>
+		<div class="flex-center btn-wrap"> <a class="btn btn-tertiary" href="<?php the_permalink(); ?>"><em
+					class="fa-light fa-eye"></em><span><?php _e('Xem chi tiết', 'canhcamtheme'); ?></span></a></div>
+	</td>
+</tr>
+<?php
 			$count++;
 			$posts_returned++;
 		endwhile;
@@ -372,13 +373,8 @@ add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
     if (is_singular('dich-vu')) {
         $crumbs = [
             [
-                __('Trang chủ', 'canhcamtheme'),
+                __('Home', 'canhcamtheme'),
                 home_url('/'),
-                'hide_in_schema' => '',
-            ],
-            [
-                __('Dịch vụ', 'canhcamtheme'),
-                get_post_type_archive_link('dich-vu'),
                 'hide_in_schema' => '',
             ],
         ];
@@ -389,10 +385,7 @@ add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
         if (in_array($page_template, ['templates/templates_leader.php', 'templates/template_about.php'])) {
             
             $about_page = get_page_by_template('templates/template_about.php');
-            
-            // if (!$about_page) {
-            //     $about_page = get_page_by_template('templates/templates_leader.php');
-            // }
+
             
             if ($about_page) {
                 $about_page_id = $about_page->ID;
@@ -402,13 +395,8 @@ add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
                 
                 $crumbs = [
                     [
-                        __('Trang chủ', 'canhcamtheme'),
+                        __('Home', 'canhcamtheme'),
                         home_url('/'),
-                        'hide_in_schema' => '',
-                    ],
-                    [
-                        __('Giới thiệu', 'canhcamtheme'),
-                        get_permalink($about_page_id),
                         'hide_in_schema' => '',
                     ],
                 ];
@@ -434,7 +422,7 @@ if (!function_exists('get_page_by_template')) {
 
 add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs, $class) {
 	
-	if (!is_tax('danh-muc-san-pham')) {
+	if (!is_tax('product-category')) {
 		return $crumbs;
 	}
 
@@ -493,13 +481,10 @@ add_action('pre_get_posts', function ($query) {
         $query->set('posts_per_page', 8);
     }
 
-	if ($query->is_post_type_archive('san-pham')) {
+	if ($query->is_post_type_archive('product')) {
         $query->set('posts_per_page', 9);
     }
     if ($query->is_page_template('templates/template_san_pham.php')) {
-        $query->set('posts_per_page', 9);
-    }
-    if ($query->is_tax('danh-muc-san-pham')) {
         $query->set('posts_per_page', 9);
     }
 
@@ -528,7 +513,7 @@ function my_custom_active_menu_class($classes, $item) {
 		};
 
 		// Mapping Pages to Templates
-		$mapping['san-pham']   = $find_page_id('templates/template_san_pham.php');
+		$mapping['product']   = $find_page_id('templates/template_san_pham.php');
 		
 		// Standard Posts Page (News)
 		$mapping['post']       = (int) get_option('page_for_posts');
@@ -537,8 +522,8 @@ function my_custom_active_menu_class($classes, $item) {
 	$object_id = (int) $item->object_id;
 
 	// 1. Sản phẩm (Archive page template)
-	if (is_singular('san-pham') || is_tax('danh-muc-san-pham')) {
-		if ($object_id === $mapping['san-pham'] && $mapping['san-pham'] > 0) {
+	if (is_singular('product') || is_tax('product-category')) {
+		if ($object_id === $mapping['product'] && $mapping['product'] > 0) {
 			$classes[] = 'active';
 			$classes[] = 'current-menu-item';
 		}
@@ -555,3 +540,80 @@ function my_custom_active_menu_class($classes, $item) {
 	return array_unique($classes);
 }
 add_filter('nav_menu_css_class', 'my_custom_active_menu_class', 10, 2);
+
+
+add_shortcode('custom_wpml_lang', 'custom_wpml_language_switcher');
+function custom_wpml_language_switcher() {
+
+    if (!function_exists('icl_get_languages')) return '';
+
+    $languages = icl_get_languages('skip_missing=0&orderby=code');
+    if (empty($languages)) return '';
+
+    $current_lang = null;
+    $other_langs  = [];
+
+    foreach ($languages as $lang) {
+        if ($lang['active']) {
+            $current_lang = $lang;
+        } else {
+            $other_langs[] = $lang;
+        }
+    }
+
+    ob_start(); ?>
+
+<div class="header-language">
+
+	<!-- ACTIVE LANGUAGE -->
+	<div class="header-language-active">
+		<ul>
+			<li class="wpml-ls-current-language">
+				<a href="<?php echo esc_url($current_lang['url']); ?>">
+					<div class="icon">
+						<i class="fa-light fa-globe"></i>
+					</div>
+					<span class="wpml-ls-native">
+						<?php echo strtoupper($current_lang['language_code']); ?>
+					</span>
+				</a>
+			</li>
+			<ul>
+				<?php foreach ($other_langs as $lang): ?>
+				<li>
+					<a href="<?php echo esc_url($lang['url']); ?>">
+						<span><?php echo strtoupper($lang['language_code']); ?></span>
+					</a>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+		</ul>
+	</div>
+
+	<!-- DROPDOWN LIST -->
+	<div class="header-language-list">
+		<ul>
+			<li class="wpml-ls-current-language">
+				<a href="<?php echo esc_url($current_lang['url']); ?>">
+					<span class="wpml-ls-native">
+						<?php echo strtoupper($current_lang['language_code']); ?>
+					</span>
+				</a>
+			</li>
+			<ul>
+				<?php foreach ($other_langs as $lang): ?>
+				<li>
+					<a href="<?php echo esc_url($lang['url']); ?>">
+						<span><?php echo strtoupper($lang['language_code']); ?></span>
+					</a>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+		</ul>
+	</div>
+
+</div>
+
+<?php
+    return ob_get_clean();
+}

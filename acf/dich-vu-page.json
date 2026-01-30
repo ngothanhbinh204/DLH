@@ -33,7 +33,7 @@
       "name": "featured_services",
       "label": "Dịch vụ nổi bật (Slider)",
       "type": "relationship",
-      "post_type": ["dich-vu"],
+      "post_type": ["service"],
       "filters": ["search"],
       "return_format": "object",
       "min": 0,

@@ -4,149 +4,182 @@
  */
 get_header();
 
-// Banner Section
-get_template_part('modules/common/banner'); 
+// Banner
+$about_banner_image = get_field('about_banner_image');
+$about_banner_title = get_field('about_banner_title');
 
-// ===========================
-// SECTION 1: Về Chúng Tôi
-// ===========================
+// Section 1: Facilities
+$about_1_enable = get_field('about_1_enable');
+$about_1_sub_title = get_field('about_1_sub_title');
 $about_1_title = get_field('about_1_title');
-$about_1_content = get_field('about_1_content');
-$about_1_profile = get_field('about_1_profile'); // URL
-$about_1_video = get_field('about_1_video'); // URL
-$about_1_images = get_field('about_1_images'); // Gallery array
-?>
-<?php if ($about_1_content): ?>
-<section class="about-1 section-py">
-    <div class="container">
-        <div class="wrapper grid md:grid-cols-[42.86%_1fr] grid-cols-1 xl:rem:gap-[120px] gap-base">
-            <div class="col-left">
-                <?php if ($about_1_title): ?>
-                    <h2 class="title font-bold text-Primary-2 mb-base"><?php echo esc_html($about_1_title); ?></h2>
-                <?php endif; ?>
-                
-                <div class="format-content body-1 text-justify font-normal space-y-5">
-                    <?php echo $about_1_content; ?>
-                </div>
+$about_1_facilities = get_field('about_1_facilities');
 
-                <div class="wrap-button mt-5 flex items-center gap-5">
-                    <?php if ($about_1_profile): ?>
-                    <a class="btn btn-primary" href="<?php echo esc_url($about_1_profile); ?>" target="_blank">
-                        <div class="icon"><i class="fa-regular fa-download"></i></div>
-                        <span><?php _e('Tải hồ sơ năng lực', 'canhcamtheme'); ?></span>
-                    </a>
-                    <?php endif; ?>
-                    
-                    <?php if ($about_1_video): ?>
-                    <a class="btn btn-primary" href="<?php echo esc_url($about_1_video); ?>" data-fancybox>
-                        <div class="icon"><i class="fa-regular fa-play"></i></div>
-                        <span><?php _e('Xem video', 'canhcamtheme'); ?></span>
-                    </a>
-                    <?php endif; ?>
-                </div>
+// Section 2: About Overview
+$about_2_enable = get_field('about_2_enable');
+$about_2_sub_title = get_field('about_2_sub_title');
+$about_2_title = get_field('about_2_title');
+$about_2_description = get_field('about_2_description');
+$about_2_image = get_field('about_2_image');
+
+// Section 3: Vision & Mission
+$about_3_enable = get_field('about_3_enable');
+$about_3_items = get_field('about_3_items');
+
+// Section 4: Core Values
+$about_4_enable = get_field('about_4_enable');
+$about_4_sub_title = get_field('about_4_sub_title');
+$about_4_title = get_field('about_4_title');
+$about_4_description = get_field('about_4_description');
+$about_4_values = get_field('about_4_values');
+
+// Section 5: Certificates
+$about_5_enable = get_field('about_5_enable');
+$about_5_background = get_field('about_5_background');
+$about_5_sub_title = get_field('about_5_sub_title');
+$about_5_title = get_field('about_5_title');
+$about_5_gallery = get_field('about_5_gallery');
+?>
+
+<section class="page-banner-main">
+    <?php if ($about_banner_image): ?>
+    <div class="img img-ratio pt-[calc(640/1920*100rem)]">
+        <?php echo get_image_attrachment($about_banner_image); ?>
+    </div>
+    <?php endif; ?>
+    <div class="content-banner">
+        <div class="container-fluid">
+            <?php if ($about_banner_title): ?>
+                <h2 class="title"><?php echo esc_html($about_banner_title); ?></h2>
+            <?php endif; ?>
+            <?php if (function_exists('rank_math_the_breadcrumbs')): ?>
+            <div class="global-breadcrumb">
+                <?php rank_math_the_breadcrumbs(); ?>
             </div>
-            <div class="col-right">
-                <?php if ($about_1_images): ?>
-                <div class="wrap-img grid grid-cols-2 gap-base">
-                    <?php foreach ($about_1_images as $index => $img): 
-                        if ($index > 1) break; // Limit to 2
-                    ?>
-                    <div class="img img-ratio ratio:pt-[500_320] rounded-5">
-                        <?php echo get_image_attrachment($img, 'image'); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<?php if ($about_1_enable && $about_1_facilities): ?>
+<section class="about-1 section-py bg-Utility-gray-50">
+    <div class="container-fluid">
+        <div class="wrap-heading text-center mb-base">
+            <?php if ($about_1_sub_title): ?>
+                <div class="sub-title heading-4 font-semibold text-Utility-gray-500 mb-3"><?php echo $about_1_sub_title; ?></div>
+            <?php endif; ?>
+            <?php if ($about_1_title): ?>
+                <h2 class="title heading-1 uppercase"><?php echo $about_1_title; ?></h2>
+            <?php endif; ?>
+        </div>
+        <div class="swiper-column-auto relative swiper-loop autoplay">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($about_1_facilities as $facility): ?>
+                    <div class="swiper-slide">
+                        <div class="facility-item">
+                            <?php if ($facility['image']): ?>
+                            <div class="img img-ratio ratio:pt-[465_828]">
+                                <?php echo get_image_attrachment($facility['image']); ?>
+                            </div>
+                            <?php endif; ?>
+                            <div class="content mt-6 text-center">
+                                <?php if ($facility['title']): ?>
+                                <h3 class="title heading-2 font-extrabold text-Primary-1 mb-4">
+                                    <?php if ($facility['link']): ?>
+                                        <a href="<?php echo esc_url($facility['link']['url']); ?>" target="<?php echo esc_attr($facility['link']['target'] ?: '_self'); ?>">
+                                            <?php echo esc_html($facility['title']); ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <?php echo esc_html($facility['title']); ?>
+                                    <?php endif; ?>
+                                </h3>
+                                <?php endif; ?>
+                                <?php if ($facility['description']): ?>
+                                <div class="desc body-1 font-normal font-secondary">
+                                    <?php echo $facility['description']; ?>
+                                </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                     <?php endforeach; ?>
                 </div>
-                <?php endif; ?>
+            </div>
+            <div class="wrap-button-slide">
+                <div class="btn btn-sw-1 btn-prev"></div>
+                <div class="btn btn-sw-1 btn-next"></div>
             </div>
         </div>
     </div>
 </section>
 <?php endif; ?>
 
-<?php
-// ===========================
-// SECTION 2: Tầm Nhìn
-// ===========================
-$about_2_bg = get_field('about_2_bg'); // URL
-$about_2_title = get_field('about_2_title');
-$about_2_desc = get_field('about_2_desc');
-?>
-<?php if ($about_2_desc): ?>
-<section class="about-2 section-py" <?php if($about_2_bg) echo 'setBackground="'.esc_url($about_2_bg).'"'; ?>>
-    <div class="container">
-        <div class="wrapper rem:max-w-[1171px] w-full text-center mx-auto">
-            <?php if ($about_2_title): ?>
-                <h2 class="title mb-base"><?php echo esc_html($about_2_title); ?></h2>
-            <?php endif; ?>
-            <div class="desc body-1 font-normal">
-                <p><?php echo nl2br(esc_html($about_2_desc)); ?></p>
-            </div>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
-
-<?php
-// ===========================
-// SECTION 3: Sứ Mệnh
-// ===========================
-$about_3_image = get_field('about_3_image');
-$about_3_title = get_field('about_3_title');
-$about_3_content = get_field('about_3_content');
-?>
-<?php if ($about_3_content): ?>
-<section class="about-3 section-py">
-    <div class="container">
-        <div class="wrapper grid lg:grid-cols-[49.29%_1fr] grid-cols-1 items-center xl:gap-20 gap-base">
+<?php if ($about_2_enable): ?>
+<section class="about-2 section-py">
+    <div class="container-fluid">
+        <div class="wrap-heading grid lg:grid-cols-2 grid-cols-1 gap-8 xl:mb-16 mb-base">
             <div class="col-left">
-                <?php if ($about_3_image): ?>
-                <div class="img">
-                    <a class="img-ratio ratio:pt-[388_690] rounded-5" href="javascript:void(0);">
-                        <?php echo get_image_attrachment($about_3_image, 'image'); ?>
-                    </a>
-                </div>
+                <?php if ($about_2_sub_title): ?>
+                    <div class="sub-title heading-4 font-semibold text-Utility-gray-500 mb-4"><?php echo $about_2_sub_title; ?></div>
+                <?php endif; ?>
+                <?php if ($about_2_title): ?>
+                    <h2 class="title heading-1 uppercase"><?php echo $about_2_title; ?></h2>
                 <?php endif; ?>
             </div>
             <div class="col-right">
-                <?php if ($about_3_title): ?>
-                    <h3 class="title heading-1 font-bold text-Primary-2 mb-base"><?php echo esc_html($about_3_title); ?></h3>
+                <?php if ($about_2_description): ?>
+                    <div class="format-content body-1 font-normal font-secondary">
+                        <?php echo $about_2_description; ?>
+                    </div>
                 <?php endif; ?>
-                <div class="format-content body-1 font-normal">
-                    <?php echo $about_3_content; ?>
-                </div>
             </div>
         </div>
+        <?php if ($about_2_image): ?>
+        <div class="wrap-img">
+            <div class="img">
+                <a class="img-ratio ratio:pt-[638_1720]" href="<?php echo get_image_attrachment($about_2_image, 'url'); ?>" data-fancybox>
+                    <?php echo get_image_attrachment($about_2_image); ?>
+                </a>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 </section>
 <?php endif; ?>
 
-<?php
-// ===========================
-// SECTION 4: Triết Lý Kinh Doanh
-// ===========================
-$about_4_bg = get_field('about_4_bg'); // URL
-$about_4_title = get_field('about_4_title');
-$about_4_subtitle = get_field('about_4_subtitle');
-$about_4_items = get_field('about_4_items');
-?>
-<?php if ($about_4_items): ?>
-<section class="about-4 xl:rem:pb-[58px] xl:rem:pt-[80px] py-10" <?php if($about_4_bg) echo 'setBackground="'.esc_url($about_4_bg).'"'; ?>>
+<?php if ($about_3_enable && $about_3_items): ?>
+<section class="about-3 section-py !pt-0">
     <div class="container">
-        <div class="wrap-title">
-            <div class="title heading-1 text-white font-bold mb-6"><?php echo esc_html($about_4_title); ?></div>
-            <div class="title-linear"><?php echo esc_html($about_4_title); ?></div>
-        </div>
-        <?php if ($about_4_subtitle): ?>
-            <div class="sub-title text-white font-bold"><?php echo esc_html($about_4_subtitle); ?></div>
-        <?php endif; ?>
-        
-        <div class="wrapper grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-base xl:rem:mt-[180px] mt-base">
-            <?php foreach ($about_4_items as $item): ?>
-            <div class="item text-white">
-                <div class="number rem:text-[60px] font-bold mb-4"><?php echo esc_html($item['number']); ?></div>
-                <h3 class="title heading-3 mb-4 font-bold"><?php echo esc_html($item['title']); ?></h3>
-                <div class="desc body-1 font-normal text-justify">
-                    <p><?php echo nl2br(esc_html($item['desc'])); ?></p>
+        <div class="wrapper-main">
+            <?php foreach ($about_3_items as $index => $item): 
+                $is_even = ($index % 2 == 0);
+            ?>
+            <div class="wrapper grid md:grid-cols-2 items-center <?php echo ($index > 0) ? 'mt-base' : ''; ?>">
+                <div class="col-left <?php echo $is_even ? '' : 'md:order-2'; ?>">
+                    <div class="content-top mb-base">
+                        <?php if ($item['sub_title']): ?>
+                            <div class="sub-title heading-4 font-semibold text-Utility-gray-500 mb-4"><?php echo $item['sub_title']; ?></div>
+                        <?php endif; ?>
+                        <?php if ($item['title']): ?>
+                            <h2 class="title heading-1 uppercase"><?php echo $item['title']; ?></h2>
+                        <?php endif; ?>
+                    </div>
+                    <div class="content-bottom">
+                        <?php if ($item['description']): ?>
+                            <div class="desc body-1 font-normal font-secondary">
+                                <?php echo $item['description']; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="col-right <?php echo $is_even ? '' : 'md:order-1'; ?>">
+                    <?php if ($item['image']): ?>
+                    <div class="img">
+                        <a class="img-ratio ratio:pt-[440_660] zoom-img" href="<?php echo get_image_attrachment($item['image'], 'url'); ?>" data-fancybox="vision-mission">
+                            <?php echo get_image_attrachment($item['image']); ?>
+                        </a>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endforeach; ?>
@@ -155,208 +188,84 @@ $about_4_items = get_field('about_4_items');
 </section>
 <?php endif; ?>
 
-<?php
-// ===========================
-// SECTION 5: Lịch sử hình thành
-// ===========================
-$about_5_title = get_field('about_5_title');
-$about_5_items = get_field('about_5_items');
-?>
-<?php if ($about_5_items): ?>
-<section class="about-5 section-py !pb-0">
-    <div class="wrapper">
-        <div class="container">
-            <?php if ($about_5_title): ?>
-                <h2 class="title heading-1 text-Primary-2 font-bold mb-base text-center"><?php echo esc_html($about_5_title); ?></h2>
+<?php if ($about_4_enable && $about_4_values): ?>
+<section class="about-4 xl:py-15 py-10">
+    <div class="container-fluid">
+        <div class="wrap-heading text-center xl:mb-16 mb-base">
+            <?php if ($about_4_sub_title): ?>
+                <div class="sub-title heading-4 font-semibold text-Utility-gray-500 mb-3"><?php echo $about_4_sub_title; ?></div>
             <?php endif; ?>
-            
-            <div class="thumb mb-base">
-                <div class="wrap-slide-years">
-                    <div class="relative">
-                        <div class="swiper history-swiper">
-                            <div class="swiper-wrapper">
-                                <?php foreach ($about_5_items as $item): ?>
-                                <div class="swiper-slide">
-                                    <div class="item-history flex flex-col items-center gap-8">
-                                        <div class="wrap">
-                                            <div class="line-year">
-                                                <div class="circle rem:w-[32px] rem:h-[32px] rounded-full border border-transparent">
-                                                    <div class="dot"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            <div class="number"><?php echo esc_html($item['year']); ?></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endforeach; ?>
+            <?php if ($about_4_title): ?>
+                <h2 class="title heading-1 uppercase mb-4"><?php echo $about_4_title; ?></h2>
+            <?php endif; ?>
+            <?php if ($about_4_description): ?>
+                <div class="desc body-1 font-normal font-secondary">
+                    <?php echo $about_4_description; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="wrap-list grid grid-cols-3 gap-x-6 xl:gap-y-16 gap-y-10">
+            <?php foreach ($about_4_values as $index => $value): ?>
+            <div class="item">
+                <div class="content-left">
+                    <div class="number"><?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?></div>
+                    <div class="line"></div>
+                </div>
+                <div class="content-right">
+                    <?php if ($value['icon']): ?>
+                    <div class="icon">
+                        <img class="img-svg" src="<?php echo esc_url($value['icon']['url']); ?>" alt="<?php echo esc_attr($value['title']); ?>">
+                    </div>
+                    <?php endif; ?>
+                    <div class="content-right-bottom">
+                        <?php if ($value['title']): ?>
+                            <h3 class="title heading-2 font-bold"><?php echo $value['title']; ?></h3>
+                        <?php endif; ?>
+                        <?php if ($value['description']): ?>
+                            <div class="desc">
+                                <?php echo $value['description']; ?>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
-            
-            <div class="main relative mt-base">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <?php foreach ($about_5_items as $item): ?>
-                        <div class="swiper-slide">
-                            <div class="box xl:p-10 p-4 bg-white">
-                                <div class="item grid lg:grid-cols-[42.42%_57.58%] xl:gap-12 gap-base">
-                                    <div class="col-left">
-                                        <?php if ($item['image']): ?>
-                                        <div class="img">
-                                            <a class="img-ratio ratio:pt-[373_560] rounded-5" href="javascript:void(0);">
-                                                <?php echo get_image_attrachment($item['image'], 'image'); ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
+
+<?php if ($about_5_enable && $about_5_gallery): ?>
+<section class="about-5 section-py" <?php if ($about_5_background): ?>setBackground="<?php echo get_image_attrachment($about_5_background, 'url'); ?>"<?php endif; ?>>
+    <div class="container-fluid">
+        <div class="wrap-heading text-center mb-base">
+            <?php if ($about_5_sub_title): ?>
+                <div class="sub-title heading-4 font-semibold text-Utility-gray-500 mb-3"><?php echo $about_5_sub_title; ?></div>
+            <?php endif; ?>
+            <?php if ($about_5_title): ?>
+                <h2 class="title heading-1"><?php echo $about_5_title; ?></h2>
+            <?php endif; ?>
+        </div>
+        <div class="big-wrapper">
+            <div class="relative mt-10">
+                <div class="ratio-wrapper lg:img-ratio lg:ratio:pt-[535_1720]">
+                    <div class="ratio-inner lg:absolute inset-0 w-full h-full">
+                        <div class="wrapper lg:overflow-hidden h-full flex items-center">
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($about_5_gallery as $image): ?>
+                                    <div class="dynamic-slide swiper-slide">
+                                        <div class="img transition-all duration-500">
+                                            <a class="img-ratio ratio:pt-[364_264] zoom-img" href="<?php echo esc_url($image['url']); ?>" data-fancybox="gallery">
+                                                <?php echo get_image_attrachment($image); ?>
                                             </a>
                                         </div>
-                                        <?php endif; ?>
                                     </div>
-                                    <div class="col-right">
-                                        <div class="format-content body-1">
-                                            <div class="year heading-2 text-Primary-2 font-bold mb-3"><?php echo esc_html($item['year']); ?></div>
-                                            <?php echo $item['content']; ?>
-                                        </div>
-                                    </div>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         </div>
-                        <?php endforeach; ?>
                     </div>
-                </div>
-                <div class="wrap-button-slide drop">
-                    <div class="btn btn-prev btn-sw-1"></div>
-                    <div class="btn btn-next btn-sw-1"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
-
-<?php
-// ===========================
-// SECTION 6: Công Trình KH-KT
-// ===========================
-$about_6_bg = get_field('about_6_bg'); // URL
-$about_6_title = get_field('about_6_title');
-$about_6_table = get_field('about_6_table');
-
-$about_6_heritage_title = get_field('about_6_heritage_title');
-$about_6_heritage_content = get_field('about_6_heritage_content');
-$about_6_heritage_image = get_field('about_6_heritage_image');
-?>
-<?php if ($about_6_table || $about_6_heritage_content): ?>
-<section class="about-6 section-py" <?php if($about_6_bg) echo 'setBackground="'.esc_url($about_6_bg).'"'; ?>>
-    <div class="container">
-        <?php if ($about_6_title): ?>
-            <h2 class="title text-center mb-base"><?php echo esc_html($about_6_title); ?></h2>
-        <?php endif; ?>
-        
-        <div class="infos">
-            <?php if ($about_6_table): ?>
-            <div class="wrap-table rounded-5 overflow-hidden">
-                <div class="about-6-table table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td class="text-center rem:w-[80px]"><?php _e('STT', 'canhcamtheme'); ?></td>
-                                <td class="lg:rem:w-[349px] rem:w-[260px]"><?php _e('Công trình/ Sản phẩm', 'canhcamtheme'); ?></td>
-                                <td class="text-center rem:w-[149px]"><?php _e('Năm', 'canhcamtheme'); ?></td>
-                                <td class="text-center"><?php _e('Ý nghĩa', 'canhcamtheme'); ?></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($about_6_table as $index => $row): 
-                                $product_obj = $row['product'];
-                                $product_link = $product_obj ? get_permalink($product_obj->ID) : '#';
-                                $product_title = $product_obj ? get_the_title($product_obj->ID) : '';
-                            ?>
-                            <tr>
-                                <td class="text-center p-3"><?php echo $index + 1; ?></td>
-                                <td>
-                                    <?php if ($product_obj): ?>
-                                        <a class="recruitment-link" href="<?php echo esc_url($product_link); ?>"><?php echo esc_html($product_title); ?></a>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="text-center"><?php echo esc_html($row['year']); ?></td>
-                                <td class="text-center"><?php echo nl2br(esc_html($row['meaning'])); ?></td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <div class="wrapper-main grid lg:grid-cols-2 grid-cols-1 items-center xl:gap-0 gap-base xl:mt-20 mt-base">
-                <div class="col-left xl:rem:pr-[58px]">
-                    <?php if ($about_6_heritage_title): ?>
-                        <h2 class="title mb-base"><?php echo esc_html($about_6_heritage_title); ?></h2>
-                    <?php endif; ?>
-                    <div class="format-content body-1">
-                        <?php echo $about_6_heritage_content; ?>
-                    </div>
-                </div>
-                <div class="col-right xl:rem:pl-[10px]">
-                    <?php if ($about_6_heritage_image): ?>
-                    <div class="img img-ratio ratio:pt-[388_690] rounded-5">
-                        <?php echo get_image_attrachment($about_6_heritage_image, 'image'); ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<?php endif; ?>
-
-<?php
-// ===========================
-// SECTION 7: Nền Tảng Phát Triển Bền Vững
-// ===========================
-$about_7_title = get_field('about_7_title');
-$about_7_content = get_field('about_7_content');
-$about_7_img_1 = get_field('about_7_img_1');
-$about_7_img_2 = get_field('about_7_img_2');
-$about_7_img_3 = get_field('about_7_img_3');
-?>
-<?php if ($about_7_content): ?>
-<section class="about-7 section-py">
-    <div class="container">
-        <div class="wrapper flex flex-col gap-base">
-            <div class="wrap-top grid lg:grid-cols-2 grid-cols-1 gap-base">
-                <div class="col-left">
-                    <?php if ($about_7_title): ?>
-                        <h2 class="title mb-base"><?php echo esc_html($about_7_title); ?></h2>
-                    <?php endif; ?>
-                    <div class="format-content body-1 text-justify">
-                        <?php echo $about_7_content; ?>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <?php if ($about_7_img_1): ?>
-                    <div class="img img-ratio ratio:pt-[596_680]">
-                        <?php echo get_image_attrachment($about_7_img_1, 'image'); ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div class="wrap-bottom grid lg:grid-cols-2 grid-cols-1 gap-base">
-                <div class="col-left">
-                    <?php if ($about_7_img_2): ?>
-                    <div class="img img-ratio ratio:pt-[616_680]">
-                        <?php echo get_image_attrachment($about_7_img_2, 'image'); ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <div class="col-right">
-                    <?php if ($about_7_img_3): ?>
-                    <div class="img img-ratio ratio:pt-[616_680]">
-                        <?php echo get_image_attrachment($about_7_img_3, 'image'); ?>
-                    </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>

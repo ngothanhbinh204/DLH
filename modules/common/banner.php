@@ -49,8 +49,8 @@ if ($id_category && $taxonomy) {
     
     // Map post type to page slug
     $page_slug_map = array(
-        'san-pham' => 'san-pham',
-        'dich-vu' => 'dich-vu',
+        'product' => 'product',
+        'service' => 'service',
     );
     
     $page_slug = isset($page_slug_map[$post_type]) ? $page_slug_map[$post_type] : $post_type;
@@ -184,35 +184,36 @@ if (!$banner_image) {
 ?>
 
 <section class="page-banner-main">
-    <div class="img img-ratio pt-[calc(640/1920*100rem)]">
-        <?php if (isset($banner_image_id) && $banner_image_id): ?>
-            <?php echo get_image_attrachment($banner_image_id, 'image'); ?>
-        <?php else: ?>
-            <img class="lozad" data-src="<?php echo esc_url($banner_image_url); ?>" alt="<?php echo esc_attr($page_title); ?>" />
-        <?php endif; ?>
-    </div>
-    <div class="content">
-        <div class="global-breadcrumb">
-            <div class="container">
-                <?php 
+	<div class="img img-ratio pt-[calc(640/1920*100rem)]">
+		<?php if (isset($banner_image_id) && $banner_image_id): ?>
+		<?php echo get_image_attrachment($banner_image_id, 'image'); ?>
+		<?php else: ?>
+		<img class="lozad" data-src="<?php echo esc_url($banner_image_url); ?>"
+			alt="<?php echo esc_attr($page_title); ?>" />
+		<?php endif; ?>
+	</div>
+	<div class="content">
+		<div class="global-breadcrumb">
+			<div class="container">
+				<?php 
                 // Display breadcrumb (Rank Math or default)
                 if (function_exists('rank_math_the_breadcrumbs')) {
                     rank_math_the_breadcrumbs();
                 } else {
                     // Fallback breadcrumb
                     ?>
-                    <nav class="rank-math-breadcrumb" aria-label="breadcrumbs">
-                        <p>
-                            <a href="<?php echo home_url(); ?>"><?php _e('Trang chủ', 'canhcamtheme'); ?></a>
-                            <span class="separator"> /</span>
-                            <span class="last"><?php echo esc_html($page_title); ?></span>
-                        </p>
-                    </nav>
-                    <?php
+				<nav class="rank-math-breadcrumb" aria-label="breadcrumbs">
+					<p>
+						<a href="<?php echo home_url(); ?>"><?php _e('Trang chủ', 'canhcamtheme'); ?></a>
+						<span class="separator"> /</span>
+						<span class="last"><?php echo esc_html($page_title); ?></span>
+					</p>
+				</nav>
+				<?php
                 }
                 ?>
-                <div class="title-page heading-1 text-white font-bold mt-2"><?php echo esc_html($page_title); ?></div>
-            </div>
-        </div>
-    </div>
+				<div class="title-page heading-1 text-white font-bold mt-2"><?php echo esc_html($page_title); ?></div>
+			</div>
+		</div>
+	</div>
 </section>

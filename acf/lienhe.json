@@ -1,298 +1,134 @@
 [
-    {
-        "key": "group_691e9104c4c65",
-        "title": "Liên hệ",
-        "fields": [
-            {
-                "key": "field_691e9134b6ccb",
-                "label": "Form column",
-                "name": "",
-                "aria-label": "",
-                "type": "tab",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "placement": "top",
-                "endpoint": 0,
-                "selected": 0
-            },
-            {
-                "key": "field_691e913db6ccc",
-                "label": "Form column",
-                "name": "form_column",
-                "aria-label": "",
-                "type": "group",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "layout": "row",
-                "sub_fields": [
-                    {
-                        "key": "field_691e9143b6ccd",
-                        "label": "Title",
-                        "name": "title",
-                        "aria-label": "",
-                        "type": "text",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "maxlength": "",
-                        "allow_in_bindings": 0,
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": ""
-                    },
-                    {
-                        "key": "field_691e9149b6cce",
-                        "label": "Description",
-                        "name": "description",
-                        "aria-label": "",
-                        "type": "wysiwyg",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "allow_in_bindings": 0,
-                        "tabs": "all",
-                        "toolbar": "full",
-                        "media_upload": 1,
-                        "delay": 0
-                    },
-                    {
-                        "key": "field_691e9150b6ccf",
-                        "label": "Form",
-                        "name": "form",
-                        "aria-label": "",
-                        "type": "text",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "maxlength": "",
-                        "allow_in_bindings": 0,
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": ""
-                    }
-                ]
-            },
-            {
-                "key": "field_691e91cbbfa4a",
-                "label": "Contact column",
-                "name": "",
-                "aria-label": "",
-                "type": "tab",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "placement": "top",
-                "endpoint": 0,
-                "selected": 0
-            },
-            {
-                "key": "field_691e91ddbfa4b",
-                "label": "Contact column",
-                "name": "contact_column",
-                "aria-label": "",
-                "type": "group",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "layout": "row",
-                "sub_fields": [
-                    {
-                        "key": "field_691e91e6bfa4c",
-                        "label": "Title",
-                        "name": "title",
-                        "aria-label": "",
-                        "type": "text",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "default_value": "",
-                        "maxlength": "",
-                        "allow_in_bindings": 0,
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": ""
-                    },
-                    {
-                        "key": "field_691e91eabfa4d",
-                        "label": "Contacts",
-                        "name": "contacts",
-                        "aria-label": "",
-                        "type": "repeater",
-                        "instructions": "",
-                        "required": 0,
-                        "conditional_logic": 0,
-                        "wrapper": {
-                            "width": "",
-                            "class": "",
-                            "id": ""
-                        },
-                        "layout": "table",
-                        "pagination": 0,
-                        "min": 0,
-                        "max": 0,
-                        "collapsed": "",
-                        "button_label": "Add Row",
-                        "rows_per_page": 20,
-                        "sub_fields": [
-                            {
-                                "key": "field_691e91f5bfa4e",
-                                "label": "icon",
-                                "name": "icon",
-                                "aria-label": "",
-                                "type": "select",
-                                "instructions": "Copy code của icon tại https:\/\/fontawesome.com\/",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "choices": {
-                                    "location-dot": "Location",
-                                    "phone": "Phone",
-                                    "envelope": "Mail"
-                                },
-                                "default_value": false,
-                                "return_format": "value",
-                                "multiple": 0,
-                                "allow_null": 0,
-                                "allow_in_bindings": 0,
-                                "ui": 0,
-                                "ajax": 0,
-                                "placeholder": "",
-                                "create_options": 0,
-                                "save_options": 0,
-                                "parent_repeater": "field_691e91eabfa4d"
-                            },
-                            {
-                                "key": "field_691e9218bfa4f",
-                                "label": "Content",
-                                "name": "content",
-                                "aria-label": "",
-                                "type": "wysiwyg",
-                                "instructions": "",
-                                "required": 0,
-                                "conditional_logic": 0,
-                                "wrapper": {
-                                    "width": "",
-                                    "class": "",
-                                    "id": ""
-                                },
-                                "default_value": "",
-                                "allow_in_bindings": 0,
-                                "tabs": "all",
-                                "toolbar": "full",
-                                "media_upload": 1,
-                                "delay": 0,
-                                "parent_repeater": "field_691e91eabfa4d"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "key": "field_691e9228edb14",
-                "label": "Map",
-                "name": "",
-                "aria-label": "",
-                "type": "tab",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "placement": "top",
-                "endpoint": 0,
-                "selected": 0
-            },
-            {
-                "key": "field_691e9230edb15",
-                "label": "Map",
-                "name": "map",
-                "aria-label": "",
-                "type": "textarea",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "",
-                "maxlength": "",
-                "allow_in_bindings": 0,
-                "rows": "",
-                "placeholder": "",
-                "new_lines": ""
-            }
-        ],
-        "location": [
-            [
-                {
-                    "param": "page_template",
-                    "operator": "==",
-                    "value": "templates\/template_contact.php"
-                }
+  {
+    "key": "group_contact_page_settings",
+    "title": "Contact Page Settings",
+    "fields": [
+      {
+        "key": "tab_office_list",
+        "label": "Office Locations",
+        "type": "tab"
+      },
+      {
+        "key": "field_contact_page_title",
+        "label": "Page Main Title",
+        "name": "page_main_title",
+        "type": "text",
+        "default_value": "Head Office",
+        "instructions": "Tiêu đề chính của trang (VD: Head Office)"
+      },
+      {
+        "key": "field_office_list",
+        "label": "List of Offices",
+        "name": "office_list",
+        "type": "repeater",
+        "layout": "row",
+        "button_label": "Add New Office",
+        "sub_fields": [
+          {
+            "key": "field_office_title",
+            "label": "Office Name",
+            "name": "office_title",
+            "type": "text",
+            "instructions": "Ví dụ: Head Office, Branch 1..."
+          },
+          {
+            "key": "field_office_details",
+            "label": "Contact Details",
+            "name": "office_details",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Detail",
+            "sub_fields": [
+              {
+                "key": "field_detail_label",
+                "label": "Label",
+                "name": "label",
+                "type": "text",
+                "instructions": "Ví dụ: Address, Phone, Email..."
+              },
+              {
+                "key": "field_detail_content",
+                "label": "Content",
+                "name": "content",
+                "type": "wysiwyg",
+                "media_upload": 0,
+                "toolbar": "basic",
+                "instructions": "Nội dung thông tin liên hệ"
+              }
             ]
-        ],
-        "menu_order": 9,
-        "position": "normal",
-        "style": "default",
-        "label_placement": "top",
-        "instruction_placement": "label",
-        "hide_on_screen": "",
-        "active": true,
-        "description": "",
-        "show_in_rest": 0
-    }
+          },
+          {
+            "key": "field_office_map",
+            "label": "Map Embed Code",
+            "name": "office_map",
+            "type": "textarea",
+            "rows": 4,
+            "instructions": "Dán mã nhúng iframe Google Maps vào đây"
+          }
+        ]
+      },
+      {
+        "key": "tab_contact_form",
+        "label": "Contact Form Section",
+        "type": "tab"
+      },
+      {
+        "key": "field_form_section_enable",
+        "label": "Enable Form Section",
+        "name": "form_section_enable",
+        "type": "true_false",
+        "ui": 1,
+        "default_value": 1
+      },
+      {
+        "key": "field_form_bg",
+        "label": "Background Image",
+        "name": "form_bg",
+        "type": "image",
+        "return_format": "url",
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_form_title",
+        "label": "Form Title",
+        "name": "form_title",
+        "type": "text",
+        "default_value": "Connect with us now"
+      },
+      {
+        "key": "field_form_desc",
+        "label": "Form Description",
+        "name": "form_desc",
+        "type": "textarea",
+        "rows": 3
+      },
+      {
+        "key": "field_form_shortcode",
+        "label": "Form Shortcode",
+        "name": "form_shortcode",
+        "type": "text",
+        "instructions": "Nhập shortcode Contact Form 7 vào đây (VD: [contact-form-7 ...])"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "templates/template_contact.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+      "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0
+  }
 ]

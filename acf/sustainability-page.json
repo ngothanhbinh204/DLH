@@ -1,0 +1,194 @@
+{
+    "key": "group_sustainability_page",
+    "title": "Sustainability Page Settings",
+    "fields": [
+        {
+            "key": "tab_sus_banner",
+            "label": "Banner",
+            "type": "tab"
+        },
+        {
+            "key": "field_sus_banner_image",
+            "label": "Banner Image",
+            "name": "sus_banner_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_sus_banner_title",
+            "label": "Banner Title",
+            "name": "sus_banner_title",
+            "type": "text",
+            "default_value": "Sustainability"
+        },
+        {
+            "key": "tab_sus_vision",
+            "label": "Vision (Green Section)",
+            "type": "tab"
+        },
+        {
+            "key": "field_sus_vision_title",
+            "label": "Vision Heading",
+            "name": "sus_vision_title",
+            "type": "wysiwyg",
+            "instructions": "Use spans for color logic if needed.",
+            "tabs": "visual",
+            "toolbar": "basic",
+            "media_upload": 0
+        },
+        {
+            "key": "field_sus_vision_desc",
+            "label": "Vision Description",
+            "name": "sus_vision_desc",
+            "type": "wysiwyg",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0
+        },
+        {
+            "key": "field_sus_vision_image",
+            "label": "Vision Image (Bottom)",
+            "name": "sus_vision_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium"
+        },
+        {
+            "key": "tab_sus_strategy",
+            "label": "Strategy (Slider)",
+            "type": "tab"
+        },
+        {
+            "key": "field_sus_str_bg",
+            "label": "Background Image",
+            "name": "sus_strategy_bg",
+            "type": "image",
+            "return_format": "array"
+        },
+        {
+            "key": "field_sus_str_title",
+            "label": "Section Title",
+            "name": "sus_strategy_title",
+            "type": "text"
+        },
+        {
+            "key": "field_sus_str_desc",
+            "label": "Description",
+            "name": "sus_strategy_desc",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_sus_str_list",
+            "label": "Strategy Slider Items",
+            "name": "sus_strategy_list",
+            "type": "repeater",
+            "sub_fields": [
+                {
+                    "key": "field_sus_str_item_num",
+                    "label": "Number",
+                    "name": "number",
+                    "type": "text",
+                    "instructions": "01, 02..."
+                },
+                {
+                    "key": "field_sus_str_item_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text"
+                },
+                {
+                    "key": "field_sus_str_item_content",
+                    "label": "Content",
+                    "name": "content",
+                    "type": "wysiwyg",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                }
+            ],
+            "layout": "block",
+            "button_label": "Add Strategy Item"
+        },
+        {
+            "key": "tab_sus_commitment",
+            "label": "Commitment (Field Op)",
+            "type": "tab"
+        },
+        {
+            "key": "field_sus_com_bg",
+            "label": "Intro Background",
+            "name": "sus_com_bg",
+            "type": "image",
+            "instructions": "Background for the intro overlay.",
+            "return_format": "array"
+        },
+        {
+            "key": "field_sus_com_sub",
+            "label": "Subtitle",
+            "name": "sus_com_subtitle",
+            "type": "text",
+            "default_value": "OUR COMMITMENT TO SUSTAINABLE VALUES"
+        },
+        {
+            "key": "field_sus_com_desc",
+            "label": "Intro Description",
+            "name": "sus_com_desc",
+            "type": "wysiwyg",
+            "toolbar": "basic",
+            "media_upload": 0
+        },
+        {
+            "key": "field_sus_com_list",
+            "label": "Commitment List (People/Product/Nature)",
+            "name": "sus_com_list",
+            "type": "repeater",
+            "instructions": "These items appear in the overlay grid AND the slide reveal.",
+            "sub_fields": [
+                {
+                    "key": "field_sus_com_item_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "e.g. People"
+                },
+                {
+                    "key": "field_sus_com_item_img",
+                    "label": "Background Image",
+                    "name": "image",
+                    "type": "image",
+                    "return_format": "array"
+                },
+                {
+                    "key": "field_sus_com_item_content",
+                    "label": "Hover Content",
+                    "name": "content",
+                    "type": "wysiwyg",
+                    "toolbar": "basic",
+                    "media_upload": 0
+                }
+            ],
+            "layout": "row",
+            "button_label": "Add Commitment Item"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates/template_sustainability.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "Fields for Sustainability Page."
+}

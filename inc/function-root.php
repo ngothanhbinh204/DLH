@@ -6,8 +6,9 @@ add_theme_support('menus');
 function register_my_menu()
 {
 	$locations = array(
-		'header-top' => __('Menu top', 'canhcamtheme'),
-		'header-menu' => __('Menu chính', 'canhcamtheme'),
+		'header-left' => __('Header Menu Left', 'canhcamtheme'),
+		'header-right' => __('Header Menu Right', 'canhcamtheme'),
+		'mobile-menu' => __('Mobile Menu', 'canhcamtheme'),
 		'footer-1' => __('Menu Footer Liên Kết nhanh', 'canhcamtheme'),
 		'footer-2' => __('Menu Footer Social', 'canhcamtheme'),
 		'footer-3' => __('Menu Sitemap', 'canhcamtheme'),

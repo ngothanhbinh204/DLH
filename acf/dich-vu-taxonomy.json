@@ -24,7 +24,7 @@
       {
         "param": "taxonomy",
         "operator": "==",
-        "value": "danh-muc-dich-vu"
+        "value": "service-category"
       }
     ]
   ],

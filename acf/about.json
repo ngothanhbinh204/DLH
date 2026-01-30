@@ -1,0 +1,478 @@
+[
+  {
+    "key": "group_about_settings",
+    "title": "About Page Settings",
+    "fields": [
+      {
+        "key": "tab_about_banner",
+        "label": "Banner Section",
+        "type": "tab"
+      },
+      {
+        "key": "field_about_banner_image",
+        "label": "Banner Image",
+        "name": "about_banner_image",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "instructions": "Recommended size: 1920x640px"
+      },
+      {
+        "key": "field_about_banner_title",
+        "label": "Banner Title",
+        "name": "about_banner_title",
+        "type": "text",
+        "default_value": "About us"
+      },
+      {
+        "key": "tab_about_1",
+        "label": "Section 1: Facilities",
+        "type": "tab"
+      },
+      {
+        "key": "field_about_1_enable",
+        "label": "Enable Section",
+        "name": "about_1_enable",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_about_1_sub_title",
+        "label": "Sub Title",
+        "name": "about_1_sub_title",
+        "type": "text",
+        "default_value": "FACILITIES",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_1_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_1_title",
+        "label": "Title",
+        "name": "about_1_title",
+        "type": "text",
+        "default_value": "FACILITIES",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_1_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_1_facilities",
+        "label": "Facilities",
+        "name": "about_1_facilities",
+        "type": "repeater",
+        "layout": "row",
+        "button_label": "Add Facility",
+        "collapsed": "field_about_1_facility_title",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_1_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ],
+        "sub_fields": [
+          {
+            "key": "field_about_1_facility_image",
+            "label": "Image",
+            "name": "image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "instructions": "Recommended size: 828x465px"
+          },
+          {
+            "key": "field_about_1_facility_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text"
+          },
+          {
+            "key": "field_about_1_facility_description",
+            "label": "Description",
+            "name": "description",
+            "type": "wysiwyg",
+            "toolbar": "basic",
+            "media_upload": 0
+          },
+          {
+            "key": "field_about_1_facility_link",
+            "label": "Link (Optional)",
+            "name": "link",
+            "type": "link",
+            "return_format": "array"
+          }
+        ]
+      },
+      {
+        "key": "tab_about_2",
+        "label": "Section 2: About Overview",
+        "type": "tab"
+      },
+      {
+        "key": "field_about_2_enable",
+        "label": "Enable Section",
+        "name": "about_2_enable",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_about_2_sub_title",
+        "label": "Sub Title",
+        "name": "about_2_sub_title",
+        "type": "text",
+        "default_value": "ABOUT DLH LIME",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_2_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_2_title",
+        "label": "Title",
+        "name": "about_2_title",
+        "type": "textarea",
+        "rows": 3,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_2_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_2_description",
+        "label": "Description",
+        "name": "about_2_description",
+        "type": "wysiwyg",
+        "toolbar": "basic",
+        "media_upload": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_2_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_2_image",
+        "label": "Image",
+        "name": "about_2_image",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "instructions": "Recommended size: 1720x638px",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_2_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "tab_about_3",
+        "label": "Section 3: Vision & Mission",
+        "type": "tab"
+      },
+      {
+        "key": "field_about_3_enable",
+        "label": "Enable Section",
+        "name": "about_3_enable",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_about_3_items",
+        "label": "Items",
+        "name": "about_3_items",
+        "type": "repeater",
+        "layout": "row",
+        "button_label": "Add Item",
+        "collapsed": "field_about_3_item_title",
+        "instructions": "Add Vision, Mission, or other items",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_3_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ],
+        "sub_fields": [
+          {
+            "key": "field_about_3_item_sub_title",
+            "label": "Sub Title",
+            "name": "sub_title",
+            "type": "text",
+            "instructions": "Example: OUR VISION, OUR MISSION"
+          },
+          {
+            "key": "field_about_3_item_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text"
+          },
+          {
+            "key": "field_about_3_item_description",
+            "label": "Description",
+            "name": "description",
+            "type": "wysiwyg",
+            "toolbar": "basic",
+            "media_upload": 0
+          },
+          {
+            "key": "field_about_3_item_image",
+            "label": "Image",
+            "name": "image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "instructions": "Recommended size: 660x440px"
+          }
+        ]
+      },
+      {
+        "key": "tab_about_4",
+        "label": "Section 4: Core Values",
+        "type": "tab"
+      },
+      {
+        "key": "field_about_4_enable",
+        "label": "Enable Section",
+        "name": "about_4_enable",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_about_4_sub_title",
+        "label": "Sub Title",
+        "name": "about_4_sub_title",
+        "type": "text",
+        "default_value": "OUR CORE VALUES",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_4_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_4_title",
+        "label": "Title",
+        "name": "about_4_title",
+        "type": "text",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_4_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_4_description",
+        "label": "Description",
+        "name": "about_4_description",
+        "type": "wysiwyg",
+        "toolbar": "basic",
+        "media_upload": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_4_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_4_values",
+        "label": "Core Values",
+        "name": "about_4_values",
+        "type": "repeater",
+        "layout": "row",
+        "button_label": "Add Value",
+        "collapsed": "field_about_4_value_title",
+        "max": 6,
+        "instructions": "Add up to 6 core values",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_4_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ],
+        "sub_fields": [
+          {
+            "key": "field_about_4_value_icon",
+            "label": "Icon (SVG)",
+            "name": "icon",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "mime_types": "svg",
+            "instructions": "Upload SVG icon"
+          },
+          {
+            "key": "field_about_4_value_title",
+            "label": "Title",
+            "name": "title",
+            "type": "text"
+          },
+          {
+            "key": "field_about_4_value_description",
+            "label": "Description",
+            "name": "description",
+            "type": "wysiwyg",
+            "toolbar": "basic",
+            "media_upload": 0
+          }
+        ]
+      },
+      {
+        "key": "tab_about_5",
+        "label": "Section 5: Certificates & Achievements",
+        "type": "tab"
+      },
+      {
+        "key": "field_about_5_enable",
+        "label": "Enable Section",
+        "name": "about_5_enable",
+        "type": "true_false",
+        "default_value": 1,
+        "ui": 1
+      },
+      {
+        "key": "field_about_5_background",
+        "label": "Background Image",
+        "name": "about_5_background",
+        "type": "image",
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_5_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_5_sub_title",
+        "label": "Sub Title",
+        "name": "about_5_sub_title",
+        "type": "text",
+        "default_value": "CERTIFICATES & ACHIEVEMENTS",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_5_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_5_title",
+        "label": "Title",
+        "name": "about_5_title",
+        "type": "text",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_5_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      },
+      {
+        "key": "field_about_5_gallery",
+        "label": "Gallery",
+        "name": "about_5_gallery",
+        "type": "gallery",
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min": 0,
+        "max": 0,
+        "instructions": "Upload certificate images. Recommended size: 264x364px",
+        "conditional_logic": [
+          [
+            {
+              "field": "field_about_5_enable",
+              "operator": "==",
+              "value": "1"
+            }
+          ]
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "templates/template_about.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true
+  }
+]

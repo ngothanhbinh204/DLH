@@ -1,50 +1,67 @@
-<?php
-// Info Tab
-$footer_info_enable = get_field('footer_info_enable', 'option');
-$footer_company_title = get_field('footer_company_title', 'option');
-$footer_address_list = get_field('footer_address_list', 'option');
-$footer_copyright = get_field('footer_copyright', 'option');
-
-// Links Tab
-$footer_links_enable = get_field('footer_links_enable', 'option');
-$footer_quick_links_title = get_field('footer_quick_links_title', 'option');
-$footer_socials_title = get_field('footer_socials_title', 'option');
-$footer_socials_list = get_field('footer_socials_list', 'option');
-
-// CTA Tab
-$footer_cta_enable = get_field('footer_cta_enable', 'option');
-$footer_hotline = get_field('footer_hotline', 'option');
-$footer_fixed_socials = get_field('footer_fixed_socials', 'option');
-?>
-
-<footer class="footer bg-Primary-1 py-15">
-	<div class="container">
-		<div class="footer-top pb-4 mb-4 border-b border-b-Primary-2/10">
-			<div class="footer-wrapper grid md:grid-cols-[6.5fr_2.5fr_3fr] grid-cols-1 xl:rem:gap-[86px] gap-base">
-
-				<?php if ($footer_info_enable): ?>
-				<div class="footer-column">
-					<?php if ($footer_company_title): ?>
-					<h3 class="title body-1 font-bold text-Primary-2 uppercase mb-6">
-						<?php echo $footer_company_title; ?></h3>
+<footer class="footer bg-Utility-gray-50 xl:pt-15 xl:pb-8 py-10">
+	<div class="container-160">
+		<div class="footer-top flex items-center justify-between">
+			<div class="footer-logo rem:w-[86px]">
+				<?php 
+                $global_logo = get_field('global_logo', 'option');
+                if ($global_logo): ?>
+				<a class="img-ratio ratio:pt-[62_86]" href="<?php echo home_url(); ?>">
+					<?php echo get_image_attrachment($global_logo); ?>
+				</a>
+				<?php endif; ?>
+			</div>
+			<div class="footer-top-social">
+				<?php 
+                $footer_socials = get_field('footer_socials', 'option');
+                if ($footer_socials): ?>
+				<ul>
+					<?php foreach ($footer_socials as $item): 
+                            $icon_class = $item['icon'] ? 'fa-brands fa-' . $item['icon'] : '';
+                            $social_link = $item['link'];
+                        ?>
+					<?php if ($social_link): ?>
+					<li>
+						<a href="<?php echo esc_url($social_link['url']); ?>"
+							target="<?php echo esc_attr($social_link['target'] ? $social_link['target'] : '_blank'); ?>">
+							<i class="<?php echo esc_attr($icon_class); ?>"></i>
+						</a>
+					</li>
 					<?php endif; ?>
-
-					<?php if ($footer_address_list): ?>
-					<div class="footer-contact flex flex-col gap-3">
-						<?php foreach ($footer_address_list as $item): ?>
-						<div class="item body-2">
-							<?php if ($item['label']): ?>
-							<div class="label font-bold mb-1"><?php echo $item['label']; ?></div>
-							<?php endif; ?>
-							<?php echo $item['content']; ?>
-                            
-                            <?php if ($item['map_link']): 
-                                $link_url = $item['map_link']['url'];
-                                $link_title = $item['map_link']['title'];
-                                $link_target = $item['map_link']['target'] ? $item['map_link']['target'] : '_self';
-                            ?>
-                            <div class="view-map"> <a class="underline" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title); ?></a></div>
-                            <?php endif; ?>
+					<?php endforeach; ?>
+				</ul>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="footer-mid">
+			<div class="footer-wrapper grid lg:grid-cols-[5fr_5fr_2fr] md:grid-cols-1 gap-7">
+				<?php if (get_field('footer_col_1_enable', 'option')): ?>
+				<div class="footer-column">
+					<h3 class="title font-semibold mb-4 text-base">
+						<?php echo get_field('footer_col_1_title', 'option'); ?></h3>
+					<?php 
+                    $col_1_groups = get_field('footer_col_1_groups', 'option');
+                    if ($col_1_groups): ?>
+					<div class="wrapper-content flex flex-col gap-4">
+						<?php foreach ($col_1_groups as $group): ?>
+						<div class="footer-contact">
+							<div class="sub-title font-semibold mb-3"><?php echo $group['sub_title']; ?></div>
+							<ul class="infos flex flex-col gap-1">
+								<?php if ($group['infos']): foreach ($group['infos'] as $info): 
+                                            $info_link = $info['link'];
+                                            $info_icon = $info['icon'] ? 'fa-light fa-' . $info['icon'] : 'fa-light fa-location-dot';
+                                        ?>
+								<?php if ($info_link): ?>
+								<li>
+									<a href="<?php echo esc_url($info_link['url']); ?>"
+										target="<?php echo esc_attr($info_link['target'] ? $info_link['target'] : '_self'); ?>">
+										<div class="icon">
+											<i class="<?php echo esc_attr($info_icon); ?>"></i>
+										</div><span><?php echo esc_html($info_link['title']); ?></span>
+									</a>
+								</li>
+								<?php endif; ?>
+								<?php endforeach; endif; ?>
+							</ul>
 						</div>
 						<?php endforeach; ?>
 					</div>
@@ -52,110 +69,99 @@ $footer_fixed_socials = get_field('footer_fixed_socials', 'option');
 				</div>
 				<?php endif; ?>
 
-				<?php if ($footer_links_enable): ?>
+				<?php if (get_field('footer_col_2_enable', 'option')): ?>
 				<div class="footer-column">
-					<?php if ($footer_quick_links_title): ?>
-					<h3 class="title body-1 font-bold text-Primary-2 mb-6"><?php echo $footer_quick_links_title; ?></h3>
-					<?php endif; ?>
-					<?php
-						wp_nav_menu(array(
-							'theme_location' => 'footer-1',
-							'container'      => false,
-							'menu_class'     => 'footer-menu',
-							'fallback_cb'    => false,
-						));
-						?>
-				</div>
-
-				<div class="footer-column">
-					<?php if ($footer_socials_title): ?>
-					<h3 class="title body-1 font-bold text-Primary-2 mb-6"><?php echo $footer_socials_title; ?></h3>
-					<?php endif; ?>
-					<?php wp_nav_menu(array(
-						'theme_location' => 'footer-2',
-						'container'      => false,
-						'menu_class'     => 'footer-menu',
-						'fallback_cb'    => false,
-					)); ?>
+					<h3 class="title font-semibold mb-4 text-base">
+						<?php echo get_field('footer_col_2_title', 'option'); ?></h3>
+					<div class="footer-contact">
+						<ul class="infos flex flex-col gap-1">
+							<?php 
+                            $col_2_infos = get_field('footer_col_2_infos', 'option');
+                            if ($col_2_infos): foreach ($col_2_infos as $info): 
+                                $info_link = $info['link'];
+                                $info_icon = $info['icon'] ? 'fa-light fa-' . $info['icon'] : 'fa-light fa-location-dot';
+                            ?>
+							<?php if ($info_link): ?>
+							<li>
+								<a href="<?php echo esc_url($info_link['url']); ?>"
+									target="<?php echo esc_attr($info_link['target'] ? $info_link['target'] : '_self'); ?>">
+									<div class="icon">
+										<i class="<?php echo esc_attr($info_icon); ?>"></i>
+									</div><span><?php echo esc_html($info_link['title']); ?></span>
+								</a>
+							</li>
+							<?php endif; ?>
+							<?php endforeach; endif; ?>
+						</ul>
+					</div>
 				</div>
 				<?php endif; ?>
 
+				<div class="footer-column">
+					<h3 class="title font-semibold mb-4 text-base">
+						<?php echo get_field('footer_col_3_title', 'option') ?: 'QUICK LINKS'; ?></h3>
+					<?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'footer-1',
+                        'container'      => false,
+                        'menu_class'     => 'footer-menu',
+                        'fallback_cb'    => false,
+                    ));
+                    ?>
+				</div>
 			</div>
 		</div>
-
-		<div class="footer-bottom flex md:flex-row flex-col md:items-center justify-between body-4">
-			<div class="footer-copyright">
-				<p><?php echo $footer_copyright; ?></p>
+		<div
+			class="footer-bottom flex md:flex-row md:gap-0 gap-4 flex-col items-center justify-between body-4 font-secondary">
+			<div class="footer-copyright text-Primary-1/80 md:text-left text-center">
+				<?php echo get_field('footer_copyright', 'option'); ?>
 			</div>
 			<div class="footer-policy">
 				<?php
-				wp_nav_menu(array(
-					'theme_location' => 'footer-3',
-					'container'      => false,
-					'depth'          => 1,
-					'fallback_cb'    => false,
-				));
-				?>
+                wp_nav_menu(array(
+                    'theme_location' => 'footer-3',
+                    'container'      => false,
+                    'depth'          => 1,
+                    'fallback_cb'    => false,
+                ));
+                ?>
 			</div>
 		</div>
 	</div>
 
-	<?php if ($footer_cta_enable): ?>
 	<div class="tool-fixed-cta">
+		<div class="tool-cta-item tool-cta-share">
+			<a href="#"><i class="fa-solid fa-share-nodes"></i></a>
+			<?php 
+            $footer_fixed_socials = get_field('footer_fixed_socials', 'option');
+            if ($footer_fixed_socials): 
+                foreach ($footer_fixed_socials as $fsocial): 
+                    $icon_class = $fsocial['icon'] ? 'fa-brands fa-' . $fsocial['icon'] : '';
+                    if (in_array($fsocial['icon'], ['phone', 'location-dot', 'envelope'])) {
+                        $icon_class = 'fa-solid fa-' . $fsocial['icon'];
+                    }
+                    $fsocial_link = $fsocial['link'];
+                    if ($fsocial_link):
+                    ?>
+			<div class="tool-cta-item">
+				<a href="<?php echo esc_url($fsocial_link['url']); ?>"
+					target="<?php echo esc_attr($fsocial_link['target'] ? $fsocial_link['target'] : '_blank'); ?>">
+					<i class="<?php echo esc_attr($icon_class); ?>"></i>
+				</a>
+			</div>
+			<?php endif; ?>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
 		<div class="btn button-to-top">
 			<div class="btn-icon">
-				<div class="icon"> </div>
+				<div class="icon"></div>
 			</div>
 		</div>
-
-		<?php if ($footer_hotline): 
-            $hotline_url = $footer_hotline['url'];
-            $hotline_title = $footer_hotline['title'];
-            $hotline_target = $footer_hotline['target'] ? $footer_hotline['target'] : '_self';
-        ?>
-		<a class="btn btn-content bg-Primary-2" href="<?php echo esc_url($hotline_url); ?>" target="<?php echo esc_attr($hotline_target); ?>">
-			<div class="btn-icon">
-				<div class="icon"><i class="fa-light fa-phone"></i></div>
-			</div>
-			<div class="content"><?php echo esc_html($hotline_title); ?></div>
-		</a>
-		<?php endif; ?>
-
-		<?php if ($footer_fixed_socials): ?>
-		<div class="btn btn-content btn-social">
-			<div class="btn-icon">
-				<div class="icon"><i class="fa-light fa-messages"></i></div>
-			</div>
-			<div class="content">
-				<ul>
-					<?php foreach ($footer_fixed_socials as $fsocial): 
-                        // Icon mapping based on choices
-                        // "location-dot": "Location", "phone": "Phone", "envelope": "Mail"
-                        // Assuming prefix is fa-light based on existing classes
-                        $icon_class = $fsocial['icon'] ? 'fa-light fa-' . $fsocial['icon'] : '';
-						$icon_link = $fsocial['link']['url'] ? $fsocial['link']['url'] : '#';
-						$icon_target = $fsocial['link']['target'] ? $fsocial['link']['target'] : '_self';
-                    ?>	
-					<li>
-                        <?php if ($icon_class): ?>
-                            <div class="flex items-center gap-2">
-								<a href="<?php echo esc_url($icon_link); ?>" target="<?php echo esc_attr($icon_target); ?>"> <i class="<?php echo esc_attr($icon_class); ?>"></i></a>
-                            </div>
-                        <?php endif; ?>
-					</li>
-					<?php endforeach; ?>
-				</ul>
-			</div>
-		</div>
-		<?php endif; ?>
 	</div>
-	<?php endif; ?>
-
 </footer>
 
-<?php if (stripos($_SERVER['HTTP_USER_AGENT'], 'Chrome-Lighthouse') === false): ?>
 <?php wp_footer(); ?>
-<?php endif; ?>
 <?php echo get_field('field_config_body', 'options'); ?>
 </body>
 
