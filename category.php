@@ -46,9 +46,7 @@ if (!$banner_src) {
     }
 }
 
-/* ================================
-   3. NAV: ROOT = "TẤT CẢ" + CHILD
-================================ */
+
 $child_categories = get_terms([
     'taxonomy'   => $taxonomy,
     'parent'     => $root_id,
@@ -57,8 +55,6 @@ $child_categories = get_terms([
 ?>
 
 <main>
-
-	<!-- ================= BANNER ================= -->
 	<section class="page-banner-main">
 		<?php if ($banner_src): ?>
 		<div class="img img-ratio pt-[calc(640/1920*100rem)]">
@@ -76,19 +72,14 @@ $child_categories = get_terms([
 		</div>
 	</section>
 
-	<!-- ================= NEWS LIST ================= -->
 	<section class="news section-py">
 		<div class="container">
-
-			<!-- NAV -->
 			<ul class="nav-primary">
-
-				<!-- TAB TẤT CẢ -->
 				<li class="<?php echo ($current_id == $root_id) ? 'active' : ''; ?>">
-					<a href="<?php echo esc_url(get_category_link($root_id)); ?>">Tất cả</a>
+					<a href="<?php echo esc_url(get_category_link($root_id)); ?>">
+						<?php _e('All', 'canhcamtheme'); ?>
+					</a>
 				</li>
-
-				<!-- CÁC DANH MỤC CON -->
 				<?php foreach ($child_categories as $child): ?>
 				<li class="<?php echo ($current_id == $child->term_id) ? 'active' : ''; ?>">
 					<a href="<?php echo esc_url(get_category_link($child->term_id)); ?>">
@@ -97,7 +88,6 @@ $child_categories = get_terms([
 				</li>
 				<?php endforeach; ?>
 			</ul>
-
 			<?php if (have_posts()) :
                 $posts_array = [];
                 while (have_posts()) { the_post(); $posts_array[] = get_post(); }
@@ -108,8 +98,6 @@ $child_categories = get_terms([
             ?>
 
 			<div class="news-main grid lg:grid-cols-2 rem:gap-[29px] mt-base">
-
-				<!-- FEATURED -->
 				<?php if ($post_large):
                     $thumb_l = get_the_post_thumbnail_url($post_large->ID, 'large');
                     $cat_l   = get_the_category($post_large->ID);
@@ -144,8 +132,6 @@ $child_categories = get_terms([
 					</div>
 				</div>
 				<?php endif; ?>
-
-				<!-- LIST -->
 				<div class="col-right">
 					<?php foreach ($posts_list as $p):
                         $thumb_s = get_the_post_thumbnail_url($p->ID, 'medium');

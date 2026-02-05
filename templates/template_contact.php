@@ -103,33 +103,7 @@ $banner_title = get_field('banner_title', $page_id) ?: get_the_title($page_id);
 			<div class="cf7-custom-wrapper">
 				<?php echo do_shortcode($form_shortcode); ?>
 			</div>
-			<?php else : ?>
-			<!-- Fallback HTML Form if no shortcode (for visualization only) -->
-			<form>
-				<div class="wrap-form grid md:grid-cols-2 grid-cols-1 gap-4">
-					<div class="form-group">
-						<input type="text" placeholder="Full Name">
-					</div>
-					<div class="form-group">
-						<input type="text" placeholder="Full Name">
-					</div>
-					<div class="form-group">
-						<input type="text" placeholder="Full Name">
-					</div>
-					<div class="form-group">
-						<input type="text" placeholder="Full Name">
-					</div>
-					<div class="form-group textarea w-full">
-						<textarea placeholder="Message"></textarea>
-					</div>
-				</div>
-				<div class="form-submit flex-center mt-base">
-					<button class="btn btn-primary"><span>Submit</span>
-						<div class="icon"> <img class="img-svg"
-								src="<?php echo get_template_directory_uri(); ?>/img/arrow.svg" alt=""></div>
-					</button>
-				</div>
-			</form>
+			
 			<?php endif; ?>
 		</div>
 	</div>

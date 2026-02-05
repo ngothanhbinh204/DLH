@@ -55,7 +55,6 @@ $com_bg_url = $com_bg ? (is_array($com_bg) ? $com_bg['url'] : $com_bg) : '';
 	</div>
 </section>
 
-<!-- Section 2: Vision -->
 <section class="sustainability-1 section-py">
 	<div class="container-fluid">
 		<div class="wrapper grid lg:grid-cols-2 grid-cols-1 gap-8 mb-base">
