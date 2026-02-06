@@ -142,10 +142,7 @@ $child_categories = get_terms([
 						<div class="img xl:pr-11">
 							<a class="img-ratio ratio:pt-[168_328] zoom-img"
 								href="<?php echo get_permalink($p->ID); ?>">
-								<?php if($thumb_s): ?>
-								<img class="lozad" data-src="<?php echo esc_url($thumb_s); ?>"
-									alt="<?php echo esc_attr($p->post_title); ?>" />
-								<?php endif; ?>
+								<?php echo get_image_post($p->ID); ?>
 							</a>
 						</div>
 						<div class="content">
@@ -171,17 +168,14 @@ $child_categories = get_terms([
 			<?php if ($posts_grid): ?>
 			<div class="news-list grid md:grid-cols-3 gap-base mt-base">
 				<?php foreach ($posts_grid as $p):
-                    $thumb_g = get_the_post_thumbnail_url($p->ID, 'medium');
+                   
                     $cat_g   = get_the_category($p->ID);
                     $cat_name_g = $cat_g[0]->name ?? '';
                 ?>
 				<div class="news-item group">
 					<div class="img">
 						<a class="img-ratio ratio:pt-[318_440] zoom-img" href="<?php echo get_permalink($p->ID); ?>">
-							<?php if($thumb_g): ?>
-							<img class="lozad" data-src="<?php echo esc_url($thumb_g); ?>"
-								alt="<?php echo esc_attr($p->post_title); ?>" />
-							<?php endif; ?>
+							<?php echo get_image_post($p->ID); ?>
 						</a>
 					</div>
 					<div class="content xl:p-6 p-4">

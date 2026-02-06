@@ -270,51 +270,105 @@ add_filter( 'rank_math/frontend/breadcrumb/items', function( $crumbs, $class ) {
         return $crumbs;
     }
 
-    // Map CPT => taxonomy
-    $map = array(
-        'product'     => 'product-category',
-        'service'     => 'service-category',
-        'tuyen-dung'  => 'tuyen-dung-category',
-    );
-
     $post = get_queried_object();
     if ( ! $post || ! isset( $post->post_type ) ) {
         return $crumbs;
     }
 
     $post_type = $post->post_type;
-    if ( empty( $map[ $post_type ] ) ) {
+    
+    // Define post type archive/page mapping
+    $post_type_config = array(
+        'product' => array(
+            'template' => 'templates/template_san_pham.php',
+            'label'    => 'Products', // Fallback label
+        ),
+        'market' => array(
+            'template' => 'templates/template_market.php',
+            'label'    => 'Markets & Applications', // Fallback label
+        ),
+        'service' => array(
+            'archive'  => true, // Has archive enabled
+            'label'    => 'Services', // Fallback label
+        ),
+    );
+
+    // Check if this post type needs breadcrumb customization
+    if ( ! isset( $post_type_config[ $post_type ] ) ) {
         return $crumbs;
     }
 
-    $taxonomy = $map[ $post_type ];
+    $config = $post_type_config[ $post_type ];
+    $archive_item = null;
 
-    // Get terms assigned to the post for that taxonomy
-    $terms = wp_get_post_terms( $post->ID, $taxonomy );
-
-    if ( empty( $terms ) || is_wp_error( $terms ) ) {
-        return $crumbs;
-    }
-
-    // Choose a term — currently: first in the returned array.
-    $term = $terms[0];
-
-    // Build breadcrumb item: [ label, url ]
-    $term_item = array( $term->name, get_term_link( $term ) );
-
-    // Avoid duplicates: check if already present
-    foreach ( $crumbs as $c ) {
-        if ( isset( $c[1] ) && untrailingslashit( $c[1] ) === untrailingslashit( $term_item[1] ) ) {
-            return $crumbs;
+    // Get archive/page URL and title
+    if ( isset( $config['template'] ) ) {
+        // For post types using page templates (product, market)
+        $page = get_page_by_template( $config['template'] );
+        
+        if ( $page ) {
+            $page_id = $page->ID;
+            
+            // WPML support: get translated page if available
+            if ( function_exists( 'icl_object_id' ) ) {
+                $page_id = icl_object_id( $page_id, 'page', true ) ?: $page_id;
+            }
+            
+            $archive_item = array(
+                get_the_title( $page_id ),
+                get_permalink( $page_id ),
+            );
+        } else {
+            // Fallback if page not found
+            $archive_item = array( $config['label'], home_url( '/' ) );
+        }
+    } elseif ( isset( $config['archive'] ) && $config['archive'] ) {
+        // For post types with archive enabled (service)
+        $post_type_obj = get_post_type_object( $post_type );
+        
+        if ( $post_type_obj && $post_type_obj->has_archive ) {
+            $archive_item = array(
+                $post_type_obj->labels->name,
+                get_post_type_archive_link( $post_type ),
+            );
+        } else {
+            // Fallback
+            $archive_item = array( $config['label'], home_url( '/' ) );
         }
     }
 
-    // Insert before last item (which is usually the post title)
-    $insert_at = max( 0, count( $crumbs ) - 1 );
-    array_splice( $crumbs, $insert_at, 0, array( $term_item ) );
-
-    // Re-index to keep numeric keys continuous
-    $crumbs = array_values( $crumbs );
+    // Insert archive item before the last item (post title)
+    if ( $archive_item ) {
+        // Check for duplicates
+        $is_duplicate = false;
+        foreach ( $crumbs as $c ) {
+            if ( isset( $c[1] ) && untrailingslashit( $c[1] ) === untrailingslashit( $archive_item[1] ) ) {
+                $is_duplicate = true;
+                break;
+            }
+        }
+        
+        if ( ! $is_duplicate ) {
+            // Insert before last item (which is the post title)
+            $insert_at = max( 0, count( $crumbs ) - 1 );
+            array_splice( $crumbs, $insert_at, 0, array( $archive_item ) );
+            
+            // Re-index to keep numeric keys continuous
+            $crumbs = array_values( $crumbs );
+        }
+    }
 
     return $crumbs;
 }, 15, 2 );
+
+// Helper function to get page by template
+if ( ! function_exists( 'get_page_by_template' ) ) {
+    function get_page_by_template( $template ) {
+        $pages = get_pages( array(
+            'meta_key'   => '_wp_page_template',
+            'meta_value' => $template,
+            'number'     => 1,
+        ) );
+        return ! empty( $pages ) ? $pages[0] : null;
+    }
+}

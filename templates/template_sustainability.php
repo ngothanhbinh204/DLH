@@ -158,6 +158,7 @@ $com_bg_url = $com_bg ? (is_array($com_bg) ? $com_bg['url'] : $com_bg) : '';
 			<!-- Swiper Dynamic Part -->
 			<div class="swiper swiper-field-op">
 				<ul class="swiper-wrapper field-op-list">
+
 					<?php if($com_list): foreach($com_list as $index => $item): 
                              $item_bg = is_array($item['image']) ? $item['image']['url'] : $item['image'];
                              $active_class = ($index === 0) ? ' active' : '';

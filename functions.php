@@ -358,55 +358,46 @@ add_action( 'after_switch_theme', 'flush_rewrite_rules' );
  * Uncomment the line below, visit any page once, then comment it back
  * ---------------------------- */
 // add_action( 'init', function() { flush_rewrite_rules(); }, 999 );
-function get_page_by_template($template) {
-	$pages = get_pages([
-		'meta_key'   => '_wp_page_template',
-		'meta_value' => $template,
-		'number'     => 1,
-	]);
 
-	return !empty($pages) ? $pages[0] : null;
-}
+// add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
 
-add_filter('rank_math/frontend/breadcrumb/items', function ($crumbs) {
-
-    if (is_singular('dich-vu')) {
-        $crumbs = [
-            [
-                __('Home', 'canhcamtheme'),
-                home_url('/'),
-                'hide_in_schema' => '',
-            ],
-        ];
-    }
-    if (is_page()) {
-        $page_template = get_page_template_slug();
+//     if (is_singular('dich-vu')) {
+//         $crumbs = [
+//             [
+//                 __('Home', 'canhcamtheme'),
+//                 home_url('/'),
+//                 'hide_in_schema' => '',
+//             ],
+//         ];
+//     }
+//     if (is_page()) {
+//         $page_template = get_page_template_slug();
         
-        if (in_array($page_template, ['templates/templates_leader.php', 'templates/template_about.php'])) {
+//         if (in_array($page_template, ['templates/templates_leader.php', 'templates/template_about.php'])) {
             
-            $about_page = get_page_by_template('templates/template_about.php');
+//             $about_page = get_page_by_template('templates/template_about.php');
 
             
-            if ($about_page) {
-                $about_page_id = $about_page->ID;
-                if (function_exists('icl_object_id')) {
-                    $about_page_id = icl_object_id($about_page_id, 'page', true) ?: $about_page_id;
-                }
+//             if ($about_page) {
+//                 $about_page_id = $about_page->ID;
+//                 if (function_exists('icl_object_id')) {
+//                     $about_page_id = icl_object_id($about_page_id, 'page', true) ?: $about_page_id;
+//                 }
                 
-                $crumbs = [
-                    [
-                        __('Home', 'canhcamtheme'),
-                        home_url('/'),
-                        'hide_in_schema' => '',
-                    ],
-                ];
+//                 $crumbs = [
+//                     [
+//                         __('Home', 'canhcamtheme'),
+//                         home_url('/'),
+//                         'hide_in_schema' => '',
+//                     ],
+//                 ];
                
-            }
-        }
-    }
+//             }
+//         }
+//     }
 
-    return $crumbs;
-});
+//     return $crumbs;
+// });
 
 if (!function_exists('get_page_by_template')) {
 	function get_page_by_template($template) {
@@ -514,6 +505,7 @@ function my_custom_active_menu_class($classes, $item) {
 
 		// Mapping Pages to Templates
 		$mapping['product']   = $find_page_id('templates/template_san_pham.php');
+		$mapping['market']    = $find_page_id('templates/template_market.php');
 		
 		// Standard Posts Page (News)
 		$mapping['post']       = (int) get_option('page_for_posts');
@@ -528,9 +520,15 @@ function my_custom_active_menu_class($classes, $item) {
 			$classes[] = 'current-menu-item';
 		}
 	}
+	if (is_singular('market')) {
+		if ($object_id === $mapping['market'] && $mapping['market'] > 0) {
+			$classes[] = 'active';
+			$classes[] = 'current-menu-item';
+		}
+	}
 
-	// 5. Dịch vụ (Post) + Category
-	if ((is_singular('dich-vu') || is_tax('danh-muc-dich-vu')) && !is_front_page()) {
+	// 5. Dịch vụ (Service) + Category
+	if ((is_singular('service') || is_tax('danh-muc-dich-vu')) && !is_front_page()) {
 		if ($object_id === $mapping['post'] && $mapping['post'] > 0) {
 			$classes[] = 'active';
 			$classes[] = 'current-menu-item';
@@ -617,3 +615,8 @@ function custom_wpml_language_switcher() {
 <?php
     return ob_get_clean();
 }
+
+
+add_shortcode('theme_url', function() {
+    return get_stylesheet_directory_uri();
+});

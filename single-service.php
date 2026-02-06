@@ -124,6 +124,7 @@ $top_img_url = $top_image ? (is_array($top_image) ? $top_image['url'] : $top_ima
                             if ($related_query->have_posts()) :
                                 while ($related_query->have_posts()) : $related_query->the_post();
                                 $thumb_url = get_the_post_thumbnail_url(get_the_ID(), 'medium');
+								$excerpt   = get_field('service_top_desc', get_the_ID());
                         ?>
 					<div class="swiper-slide">
 						<div class="service-item">
@@ -140,7 +141,7 @@ $top_img_url = $top_image ? (is_array($top_image) ? $top_image['url'] : $top_ima
 									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 								</h3>
 								<div class="desc body-1 font-secondary font-normal line-clamp-2">
-									<?php the_excerpt(); ?>
+									<?php echo wp_trim_words($excerpt, 30); ?>
 								</div>
 							</div>
 						</div>

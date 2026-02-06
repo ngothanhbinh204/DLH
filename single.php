@@ -50,7 +50,9 @@ get_header();
 
                 <!-- SIDEBAR (Right Col: Related Posts) -->
                 <div class="col-right lg:col-span-4 col-span-full">
-                    <h2 class="rem:text-[36px] font-bold text-Primary-1 mb-6">Bài viết liên quan</h2>
+                    <h2 class="rem:text-[36px] font-bold text-Primary-1 mb-6">
+                        <?php _e('Bài viết liên quan', 'canhcamtheme'); ?>
+                    </h2>
                     <div class="news-detail-list flex flex-col gap-6">
                         <?php
                             $related_args = array(
